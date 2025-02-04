@@ -1,0 +1,6 @@
+@clipVault_HostAddress = http://localhost:5067
+
+GET {{clipVault_HostAddress}}/thumbnail/1
+Accept: application/json
+
+###
