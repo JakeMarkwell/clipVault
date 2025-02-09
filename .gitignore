@@ -3,3 +3,6 @@ bin/
 obj/
 .ap
 clipVault/appsettings.json
+clipVault/appsettings.development.json
+node_modules/
+package-lock.json
