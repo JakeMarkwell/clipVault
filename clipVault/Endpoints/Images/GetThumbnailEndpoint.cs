@@ -23,6 +23,7 @@ namespace clipVault.Endpoints.Images
         {
             var response = await _mediator.Send(req, ct);
 
+            HttpContext.Response.ContentType = "image/png";
             await HttpContext.Response.BodyWriter.WriteAsync(response.imageData, ct);
         }
     }

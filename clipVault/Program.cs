@@ -1,5 +1,10 @@
 using Azure.Storage.Blobs;
 using clipVault.Handlers.Images;
+using clipVault.Repositories.Images;
+using clipVault.Repositories.Video;
+using clipVault.Scenarios.Images;
+using clipVault.Scenarios.Video;
+using clipVault.Services.Images;
 using FastEndpoints;
 using Microsoft.AspNetCore.Http.Features;
 
@@ -11,7 +16,7 @@ builder.Services.AddCors(options =>
     {
         builder.WithOrigins("http://localhost:4200")
                .AllowAnyMethod()
-               .AllowAnyHeader() 
+               .AllowAnyHeader()
                .AllowCredentials();
     });
 });
@@ -22,6 +27,12 @@ builder.Services.AddFastEndpoints();
 builder.Services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(GetThumbnailHandler).Assembly));
 
 builder.Services.AddSingleton(new BlobServiceClient(builder.Configuration.GetConnectionString("AzureBlobStorage")));
+
+builder.Services.AddTransient<IGetThumbnailRepository, GetThumbnailRepository>();
+builder.Services.AddTransient<IGetThumbnailScenario, GetThumbnailScenario>();
+builder.Services.AddTransient<IThumbnailGenerator, ThumbnailGenerator>();
+builder.Services.AddTransient<IVideoRepository, VideoRepository>();
+builder.Services.AddTransient<IUploadVideoScenario, UploadVideoScenario>();
 
 builder.WebHost.ConfigureKestrel(options =>
 {

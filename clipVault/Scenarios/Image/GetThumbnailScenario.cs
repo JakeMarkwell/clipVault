@@ -1,26 +1,25 @@
 ﻿using clipVault.Models.Images.GetThumbnail;
 using clipVault.Repositories.Images;
-using MediatR;
 
-namespace clipVault.Handlers.Images
+namespace clipVault.Scenarios.Images
 {
-    public class GetThumbnailHandler : IRequestHandler<GetThumbnailRequest, GetThumbnailResponse>
+    public class GetThumbnailScenario : IGetThumbnailScenario
     {
         private readonly IGetThumbnailRepository _repository;
 
-        public GetThumbnailHandler(IGetThumbnailRepository repository)
+        public GetThumbnailScenario(IGetThumbnailRepository repository)
         {
             _repository = repository;
         }
 
-        public async Task<GetThumbnailResponse> Handle(GetThumbnailRequest request, CancellationToken cancellationToken)
+        public async Task<GetThumbnailResponse> HandleAsync(GetThumbnailRequest request, CancellationToken cancellationToken)
         {
             var imageData = await _repository.GetThumbnailAsync(request.id, cancellationToken);
 
             return new GetThumbnailResponse
             {
                 imageData = imageData,
-                fileType = "image/png"
+                fileType = "image/png" //ALWAYS WANT THIS TO BE PNG
             };
         }
     }
