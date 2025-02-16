@@ -17,9 +17,8 @@ namespace clipVault.Handlers.Videos
     {
         private readonly BlobServiceClient _blobServiceClient;
         private readonly IMediator _mediator;
-        private readonly ILogger<UploadVideoHandler> _logger;
 
-        public UploadVideoHandler(BlobServiceClient blobServiceClient, IMediator mediator, ILogger<UploadVideoHandler> logger)
+        public UploadVideoHandler(BlobServiceClient blobServiceClient, IMediator mediator)
         {
             _blobServiceClient = blobServiceClient;
             _mediator = mediator;
@@ -32,19 +31,22 @@ namespace clipVault.Handlers.Videos
                 var videoContainerClient = _blobServiceClient.GetBlobContainerClient("videostore");
                 var videoBlobClient = videoContainerClient.GetBlobClient(request.File.FileName);
 
+                var id = Guid.NewGuid().ToString();
+                var tags = request.Tags ??= "";
+
                 var metadata = new Dictionary<string, string>
                 {
-                    { "id", Guid.NewGuid().ToString() }
+                    { "id", id},
+                    { "name", request.Name },
+                    { "tags", tags}
                 };
 
                 using (var stream = request.File.OpenReadStream())
                 {
-                    _logger.LogInformation("Uploading file to blob storage: {BlobName}", request.File.FileName);
                     await videoBlobClient.UploadAsync(stream, true, cancellationToken);
                     await videoBlobClient.SetMetadataAsync(metadata, cancellationToken: cancellationToken);
                 }
 
-                _logger.LogInformation("File uploaded successfully. Generating thumbnail.");
                 var thumbnail = GenerateThumbnail(request.File);
                 var thumbnailRequest = new UploadThumbnailRequest
                 {
@@ -55,12 +57,11 @@ namespace clipVault.Handlers.Videos
 
                 await _mediator.Send(thumbnailRequest, cancellationToken);
 
-                return new UploadVideoResponse { Message = "File uploaded successfully." };
+                return new UploadVideoResponse { Id = id, Message = "File uploaded successfully." };
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error occurred while uploading file: {FileName}", request.File.FileName);
-                throw;
+                throw new InvalidOperationException("Issue uploading clip: {{request.Name}}", ex);
             }
         }
 
@@ -75,7 +76,6 @@ namespace clipVault.Handlers.Videos
                 {
                     inputStream.CopyTo(tempFileStream);
                 }
-                _logger.LogInformation("Generating thumbnail for file: {FileName}", file.FileName);
                 ffmpeg.GetVideoThumbnail(tempFilePath, outputStream, 5);
                 File.Delete(tempFilePath);
                 return outputStream.ToArray();
