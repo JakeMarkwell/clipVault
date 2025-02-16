@@ -19,7 +19,7 @@ namespace clipVault.Scenarios.Images
             return new GetThumbnailResponse
             {
                 imageData = imageData,
-                fileType = "image/png" //ALWAYS WANT THIS TO BE PNG
+                fileType = "image/png" //Always want the image to be png
             };
         }
     }

@@ -6,7 +6,7 @@ using clipVault.Scenarios.Images;
 using clipVault.Scenarios.Video;
 using clipVault.Services.Images;
 using FastEndpoints;
-using Microsoft.AspNetCore.Http.Features;
+using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,11 +28,21 @@ builder.Services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof
 
 builder.Services.AddSingleton(new BlobServiceClient(builder.Configuration.GetConnectionString("AzureBlobStorage")));
 
-builder.Services.AddTransient<IGetThumbnailRepository, GetThumbnailRepository>();
-builder.Services.AddTransient<IGetThumbnailScenario, GetThumbnailScenario>();
-builder.Services.AddTransient<IThumbnailGenerator, ThumbnailGenerator>();
+//Repositories
 builder.Services.AddTransient<IVideoRepository, VideoRepository>();
+builder.Services.AddTransient<IGetThumbnailRepository, GetThumbnailRepository>();
+
+//Scenarios
+builder.Services.AddTransient<IGetThumbnailScenario, GetThumbnailScenario>();
 builder.Services.AddTransient<IUploadVideoScenario, UploadVideoScenario>();
+
+//Services
+builder.Services.AddTransient<IThumbnailGenerator, ThumbnailGenerator>();
+
+//Fluent Validators
+builder.Services.AddValidatorsFromAssemblyContaining<UploadVideoRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<GetThumbnailRequestValidator>();
+
 
 builder.WebHost.ConfigureKestrel(options =>
 {

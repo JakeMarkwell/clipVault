@@ -17,6 +17,7 @@ namespace clipVault.Endpoints.Images
         {
             Get("/thumbnail/{id}");
             AllowAnonymous();
+            Validator<GetThumbnailRequestValidator>();
         }
 
         public override async Task HandleAsync(GetThumbnailRequest req, CancellationToken ct)

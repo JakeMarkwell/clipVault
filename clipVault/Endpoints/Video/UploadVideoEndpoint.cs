@@ -19,6 +19,7 @@ namespace clipVault.Endpoints.Videos
             AllowAnonymous();
             //Need this to allow mp4 files etc.
             AllowFileUploads();
+            Validator<UploadVideoRequestValidator>();
         }
 
         public override async Task HandleAsync(UploadVideoRequest req, CancellationToken ct)

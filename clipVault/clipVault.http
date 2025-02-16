@@ -1,6 +1,6 @@
-@clipVault_HostAddress = http://localhost:5067
+@clipVault_HostAddress = https://localhost:7222
 
-GET {{clipVault_HostAddress}}/thumbnail/1
-Accept: application/json
+GET {{clipVault_HostAddress}}/thumbnail/9ee9051d-738e-4fb1-9619-49cc774c1f5e
+Accept: multipart/form-data
 
 ###
