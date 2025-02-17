@@ -2,8 +2,6 @@ using Azure.Storage.Blobs;
 using clipVault.Handlers.Images;
 using clipVault.Repositories.Images;
 using clipVault.Repositories.Video;
-using clipVault.Scenarios.Images;
-using clipVault.Scenarios.Video;
 using clipVault.Services.Images;
 using FastEndpoints;
 using FluentValidation;
@@ -31,10 +29,6 @@ builder.Services.AddSingleton(new BlobServiceClient(builder.Configuration.GetCon
 //Repositories
 builder.Services.AddTransient<IVideoRepository, VideoRepository>();
 builder.Services.AddTransient<IGetThumbnailRepository, GetThumbnailRepository>();
-
-//Scenarios
-builder.Services.AddTransient<IGetThumbnailScenario, GetThumbnailScenario>();
-builder.Services.AddTransient<IUploadVideoScenario, UploadVideoScenario>();
 
 //Services
 builder.Services.AddTransient<IThumbnailGenerator, ThumbnailGenerator>();
