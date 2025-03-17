@@ -32,15 +32,18 @@ builder.Services.AddSingleton(new BlobServiceClient(builder.Configuration.GetCon
 builder.Services.AddTransient<IVideoRepository, VideoRepository>();
 builder.Services.AddTransient<IGetThumbnailRepository, GetThumbnailRepository>();
 
+
 //Scenarios
 builder.Services.AddTransient<IGetThumbnailScenario, GetThumbnailScenario>();
 builder.Services.AddTransient<IUploadVideoScenario, UploadVideoScenario>();
+builder.Services.AddTransient<IDeleteVideoScenario, DeleteVideoScenario>();
 
 //Services
 builder.Services.AddTransient<IThumbnailGenerator, ThumbnailGenerator>();
 
 //Fluent Validators
 builder.Services.AddValidatorsFromAssemblyContaining<UploadVideoRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<DeleteVideoScenario>();
 builder.Services.AddValidatorsFromAssemblyContaining<GetThumbnailRequestValidator>();
 
 

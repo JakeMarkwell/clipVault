@@ -1,4 +1,5 @@
 ﻿using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
 using clipVault.Services.Images;
 
 namespace clipVault.Repositories.Video
@@ -25,6 +26,41 @@ namespace clipVault.Repositories.Video
                 await videoBlobClient.SetMetadataAsync(metadata, cancellationToken: cancellationToken);
             }
         }
+
+        public async Task<bool> DeleteVideoAsync(string id, CancellationToken cancellationToken)
+        {
+            var containerClient = _blobServiceClient.GetBlobContainerClient("videostore");
+            var blobs = containerClient.GetBlobsAsync(BlobTraits.Metadata, cancellationToken: cancellationToken);
+            await foreach (var blob in blobs)
+            {
+                if (blob.Metadata.ContainsKey("id") && blob.Metadata["id"] == id)
+                {
+                    var blobClient = containerClient.GetBlobClient(blob.Name);
+                    var response = await blobClient.DeleteIfExistsAsync(DeleteSnapshotsOption.IncludeSnapshots, cancellationToken: cancellationToken);
+                    return response.Value;
+                }
+            }
+
+            return false;
+        }
+
+        public async Task<bool> DeleteThumbnailAsync(string id, CancellationToken cancellationToken)
+        {
+            var containerClient = _blobServiceClient.GetBlobContainerClient("imagestore");
+            var blobs = containerClient.GetBlobsAsync(BlobTraits.Metadata, cancellationToken: cancellationToken);
+            await foreach (var blob in blobs)
+            {
+                if (blob.Metadata.ContainsKey("id") && blob.Metadata["id"] == id)
+                {
+                    var blobClient = containerClient.GetBlobClient(blob.Name);
+                    var response = await blobClient.DeleteIfExistsAsync(DeleteSnapshotsOption.IncludeSnapshots, cancellationToken: cancellationToken);
+                    return response.Value;
+                }
+            }
+
+            return false;
+        }
+
 
         public async Task<byte[]> GenerateThumbnailAsync(IFormFile file, CancellationToken cancellationToken)
         {

@@ -1,8 +1,12 @@
-﻿namespace clipVault.Repositories.Video
+﻿using Microsoft.AspNetCore.Http;
+
+namespace clipVault.Repositories.Video
 {
     public interface IVideoRepository
     {
-        Task UploadVideoAsync(IFormFile file, Dictionary<string, string> metadata, CancellationToken cancellationToken);
-        Task<byte[]> GenerateThumbnailAsync(IFormFile file, CancellationToken cancellationToken);
+        Task<bool> DeleteVideoAsync(string id, CancellationToken cancellationToken);
+        Task<bool> DeleteThumbnailAsync(string id, CancellationToken cancellationToken);
+        Task UploadVideoAsync(IFormFile video, Dictionary<string, string> metadata, CancellationToken cancellationToken);
+        Task<byte[]> GenerateThumbnailAsync(IFormFile video, CancellationToken cancellationToken);
     }
 }

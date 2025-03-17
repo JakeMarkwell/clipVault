@@ -22,6 +22,7 @@
     <Folder Include="Configuration\" />
     <Folder Include="Handlers\Auth\" />
     <Folder Include="Models\Auth\" />
+    <Folder Include="Models\Video\DeleteVideo\" />
   </ItemGroup>
 
 </Project>
