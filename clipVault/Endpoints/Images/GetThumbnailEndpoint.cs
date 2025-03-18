@@ -1,6 +1,7 @@
 ﻿using clipVault.Models.Images.GetThumbnail;
 using FastEndpoints;
 using MediatR;
+using Microsoft.AspNetCore.Http.Metadata;
 
 namespace clipVault.Endpoints.Images
 {
@@ -16,7 +17,7 @@ namespace clipVault.Endpoints.Images
         public override void Configure()
         {
             Get("/thumbnail/{id}");
-            AllowAnonymous();
+            AllowAnonymous();           
             Validator<GetThumbnailRequestValidator>();
         }
 

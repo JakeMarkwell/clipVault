@@ -12,9 +12,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowSpecificOrigins", builder =>
+    options.AddPolicy("AllowLocalhostAngular", builder => 
     {
-        builder.WithOrigins("http://localhost:4200")
+        builder.WithOrigins("http://localhost:51453") 
                .AllowAnyMethod()
                .AllowAnyHeader()
                .AllowCredentials();
@@ -46,7 +46,6 @@ builder.Services.AddValidatorsFromAssemblyContaining<UploadVideoRequestValidator
 builder.Services.AddValidatorsFromAssemblyContaining<DeleteVideoScenario>();
 builder.Services.AddValidatorsFromAssemblyContaining<GetThumbnailRequestValidator>();
 
-
 builder.WebHost.ConfigureKestrel(options =>
 {
     options.Limits.MaxRequestBodySize = 157286400; // 150MB in bytes
@@ -54,9 +53,13 @@ builder.WebHost.ConfigureKestrel(options =>
 
 var app = builder.Build();
 
-app.UseCors("AllowSpecificOrigins");
+// Use CORS (Corrected)
+app.UseCors("AllowLocalhostAngular");
+
 app.UseHttpsRedirection();
+
 app.UseAuthorization();
+
 app.MapControllers();
 app.UseFastEndpoints();
 app.Run();

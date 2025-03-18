@@ -29,7 +29,8 @@ namespace clipVault.Repositories.Images
                     using (var memoryStream = new MemoryStream())
                     {
                         await downloadInfo.Value.Content.CopyToAsync(memoryStream, cancellationToken);
-                        return memoryStream.ToArray();
+                        var returner =  memoryStream.ToArray();
+                        return returner;
                     }
                 }
             }
