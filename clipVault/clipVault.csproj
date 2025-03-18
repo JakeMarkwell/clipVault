@@ -7,6 +7,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Configuration\**" />
+    <Compile Remove="Endpoints\Auth\**" />
+    <Compile Remove="Handlers\Auth\**" />
+    <Compile Remove="Models\Auth\**" />
+    <Content Remove="Configuration\**" />
+    <Content Remove="Endpoints\Auth\**" />
+    <Content Remove="Handlers\Auth\**" />
+    <Content Remove="Models\Auth\**" />
+    <EmbeddedResource Remove="Configuration\**" />
+    <EmbeddedResource Remove="Endpoints\Auth\**" />
+    <EmbeddedResource Remove="Handlers\Auth\**" />
+    <EmbeddedResource Remove="Models\Auth\**" />
+    <None Remove="Configuration\**" />
+    <None Remove="Endpoints\Auth\**" />
+    <None Remove="Handlers\Auth\**" />
+    <None Remove="Models\Auth\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Azure.Storage.Blobs" Version="12.23.0" />
     <PackageReference Include="FastEndpoints" Version="5.34.0" />
     <PackageReference Include="FastEndpoints.MediatR" Version="2.0.6" />
@@ -18,10 +37,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Endpoints\Auth\" />
-    <Folder Include="Configuration\" />
-    <Folder Include="Handlers\Auth\" />
-    <Folder Include="Models\Auth\" />
     <Folder Include="Models\Video\DeleteVideo\" />
   </ItemGroup>
 
