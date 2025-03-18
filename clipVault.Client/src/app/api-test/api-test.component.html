@@ -1,5 +1,6 @@
-<p>api-test works!</p>
-
-<button (click)="loadThumbnails()">Load Thumbnail</button>
-
-<img [src]="thumbnailUrl" *ngIf="thumbnailUrl" />
+<div *ngIf="loading">Loading...</div>
+<div *ngIf="error" style="color: red;">{{ error }}</div>
+<div *ngIf="!loading && !error">
+  <h2>{{ title }}</h2>
+  <img [src]="imageDataUrl" alt="Thumbnail" *ngIf="imageDataUrl" />
+</div>

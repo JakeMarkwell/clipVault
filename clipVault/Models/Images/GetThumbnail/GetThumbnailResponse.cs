@@ -4,8 +4,9 @@ namespace clipVault.Models.Images.GetThumbnail
 {
     public class GetThumbnailResponse 
     {      
-        public byte[] imageData { get; set; } 
-        public string fileType { get; set; }
+        required public byte[] imageData { get; set; } 
+        required public string fileType { get; set; }
+        required public string title { get; set; }
         
     }
 }

@@ -4,6 +4,6 @@ namespace clipVault.Scenarios.Images
 {
     public interface IGetThumbnailScenario
     {
-        Task<GetThumbnailResponse> HandleAsync(GetThumbnailRequest request, CancellationToken cancellationToken);
+        Task<GetThumbnailResponse> GetThumbnail(GetThumbnailRequest request, CancellationToken cancellationToken);
     }
 }

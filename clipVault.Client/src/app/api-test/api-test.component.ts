@@ -1,32 +1,29 @@
-// src/app/api-test/api-test.component.ts
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ApiService } from '../api.service';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser'; // Import DomSanitizer and SafeUrl
-import { NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-api-test',
-  templateUrl: './api-test.component.html',
-  styleUrls: ['./api-test.component.css'],
-  imports: [NgIf],
   standalone: true,
+  imports: [CommonModule],
+  templateUrl: './api-test.component.html',
+  styleUrl: './api-test.component.css',
 })
-export class ApiTestComponent {
-  thumbnailId: string = '5cd66812-a7ed-4821-94fc-c5ca90c6e789';
-  thumbnailUrl: SafeUrl | null = null; 
+export class ApiTestComponent implements OnInit {
+  title: string = '';
+  imageDataUrl: string = '';
+  loading: boolean = true;
+  error: string | null = null;
 
-  constructor(private apiService: ApiService, private sanitizer: DomSanitizer) {}
+  constructor(private apiService: ApiService) {}
 
-  loadThumbnails() {
-    this.apiService.getThumbnails(this.thumbnailId).subscribe({
-      next: (blob: Blob) => {
-        const url = URL.createObjectURL(blob);
-        this.thumbnailUrl = this.sanitizer.bypassSecurityTrustUrl(url);
-        console.log(this.thumbnailUrl);
-      },
-      error: (error) => {
-        console.error('There was an error!', error);
-      }
-    });
+  ngOnInit(): void {
+    //this.getThumbnail('9ee9051d-738e-4fb1-9619-49cc774c1f5e');
   }
+
+  getThumbnail(thumbnailId: string): void {
+    this.apiService.getThumbnails(thumbnailId).subscribe(
+      (response) => { console.log(response)})
+    }
+
 }

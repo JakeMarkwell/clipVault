@@ -12,15 +12,10 @@ namespace clipVault.Scenarios.Images
             _repository = repository;
         }
 
-        public async Task<GetThumbnailResponse> HandleAsync(GetThumbnailRequest request, CancellationToken cancellationToken)
+        public async Task<GetThumbnailResponse> GetThumbnail(GetThumbnailRequest request, CancellationToken cancellationToken)
         {
-            var imageData = await _repository.GetThumbnailAsync(request.id, cancellationToken);
+            return await _repository.GetThumbnailAsync(request.id, cancellationToken);
 
-            return new GetThumbnailResponse
-            {
-                imageData = imageData,
-                fileType = "image/png" //Always want the image to be png
-            };
         }
     }
 }

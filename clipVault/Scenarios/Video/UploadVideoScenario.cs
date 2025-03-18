@@ -1,4 +1,5 @@
-﻿using clipVault.Models.Images.UploadThumbnail;
+﻿using System.Reflection;
+using clipVault.Models.Images.UploadThumbnail;
 using clipVault.Models.Videos.UploadVideo;
 using clipVault.Repositories.Video;
 using MediatR;
@@ -20,7 +21,8 @@ namespace clipVault.Scenarios.Video
         {
             var metadata = new Dictionary<string, string>
             {
-                { "id", Guid.NewGuid().ToString() }
+                { "id", Guid.NewGuid().ToString() },
+                { "title", request.Title}
             };
 
             await _videoRepository.UploadVideoAsync(request.File, metadata, cancellationToken);
@@ -30,7 +32,8 @@ namespace clipVault.Scenarios.Video
             {
                 File = request.File,
                 Thumbnail = thumbnail,
-                Metadata = metadata
+                Metadata = metadata,
+                Title = request.Title,
             };
 
             await _mediator.Send(thumbnailRequest, cancellationToken);

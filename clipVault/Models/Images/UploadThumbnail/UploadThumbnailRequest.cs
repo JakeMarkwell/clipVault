@@ -7,5 +7,6 @@ namespace clipVault.Models.Images.UploadThumbnail
         public IFormFile File { get; set; }
         public byte[] Thumbnail { get; set; }
         public Dictionary<string, string> Metadata { get; set; }
+        public string Title { get; set; }
     }
 }

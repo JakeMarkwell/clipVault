@@ -7,7 +7,7 @@ namespace clipVault.Models.Videos.UploadVideo
     {
         public IFormFile File { get; set; }
 
-        public string Name { get; set; }
+        public string Title { get; set; }
 
         public string? Tags { get; set; }
     }

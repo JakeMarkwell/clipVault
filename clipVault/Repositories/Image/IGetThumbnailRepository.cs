@@ -1,7 +1,9 @@
-﻿namespace clipVault.Repositories.Images
+﻿using clipVault.Models.Images.GetThumbnail;
+
+namespace clipVault.Repositories.Images
 {
     public interface IGetThumbnailRepository
     {
-        Task<byte[]> GetThumbnailAsync(string id, CancellationToken cancellationToken);
+        Task<GetThumbnailResponse> GetThumbnailAsync(string id, CancellationToken cancellationToken);
     }
 }

@@ -9,8 +9,8 @@ public class UploadVideoRequestValidator : AbstractValidator<UploadVideoRequest>
             .NotNull().WithMessage("No file attached")
             .Must(file => file.ContentType == "video/mp4").WithMessage("Only MP4 files are allowed.");
 
-        RuleFor(x => x.Name)
-            .NotEmpty().WithMessage("Video name is required.");
+        RuleFor(x => x.Title)
+            .NotEmpty().WithMessage("Video title is required.");
 
         RuleFor(x => x.Tags)
             .MaximumLength(100).WithMessage("Tags cannot be longer than 100 characters");
