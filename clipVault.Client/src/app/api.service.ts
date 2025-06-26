@@ -1,4 +1,3 @@
-// src/app/api.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -13,20 +12,18 @@ export class ApiService {
   private api = development.apiUrl;
 
   constructor(private http: HttpClient) {}
-  
+
   getThumbnails(thumbnailId: string): Observable<ThumbnailResponse> {
-    return this.http.get(`${this.api}/thumbnail/${thumbnailId}`, { 
-      responseType: 'blob' 
-    }).pipe(
-      map(blob => {
-        // Create URL for the blob
-        const imageUrl = URL.createObjectURL(blob);
-        
-        // Return as ThumbnailResponse
+    return this.http.get<any>(`${this.api}/thumbnail/${thumbnailId}`).pipe(
+      map(response => {
+        // Convert base64 to data URL for <img> src
+        const imageUrl = `data:${response.fileType};base64,${response.imageData}`;
         return {
           imageData: imageUrl,
-          fileType: blob.type,
-          title: `Thumbnail ${thumbnailId}`
+          fileType: response.fileType,
+          title: response.title,
+          friendTags: response.friendTags,
+          categoryTags: response.categoryTags
         };
       })
     );

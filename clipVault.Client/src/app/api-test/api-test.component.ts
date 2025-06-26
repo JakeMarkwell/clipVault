@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { CommonModule } from '@angular/common';
 
@@ -12,6 +12,8 @@ import { CommonModule } from '@angular/common';
 export class ApiTestComponent implements OnInit {
   title: string = '';
   imageDataUrl: string = '';
+  friendTags: string[] = [];
+  categoryTags: string[] = [];
   loading: boolean = true;
   error: string | null = null;
 
@@ -22,8 +24,20 @@ export class ApiTestComponent implements OnInit {
   }
 
   getThumbnail(thumbnailId: string): void {
-    this.apiService.getThumbnails(thumbnailId).subscribe(
-      (response) => { console.log(response)})
-    }
-
+    this.loading = true;
+    this.error = null;
+    this.apiService.getThumbnails(thumbnailId).subscribe({
+      next: (response) => {
+        this.title = response.title;
+        this.imageDataUrl = response.imageData;
+        this.friendTags = response.friendTags ?? [];
+        this.categoryTags = response.categoryTags ?? [];
+        this.loading = false;
+      },
+      error: (err) => {
+        this.error = 'Failed to load thumbnail';
+        this.loading = false;
+      }
+    });
+  }
 }

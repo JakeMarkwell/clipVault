@@ -2,10 +2,11 @@
 using FastEndpoints;
 using MediatR;
 using Microsoft.AspNetCore.Http.Metadata;
+using System;
 
 namespace clipVault.Endpoints.Images
 {
-    public class GetThumbnailEndpoint : Endpoint<GetThumbnailRequest, GetThumbnailResponse>
+    public class GetThumbnailEndpoint : Endpoint<GetThumbnailRequest, GetThumbnailDto>
     {
         private readonly IMediator _mediator;
 
@@ -17,7 +18,7 @@ namespace clipVault.Endpoints.Images
         public override void Configure()
         {
             Get("/thumbnail/{id}");
-            AllowAnonymous();           
+            AllowAnonymous();
             Validator<GetThumbnailRequestValidator>();
         }
 
@@ -25,8 +26,23 @@ namespace clipVault.Endpoints.Images
         {
             var response = await _mediator.Send(req, ct);
 
-            HttpContext.Response.ContentType = "image/png";
-            await HttpContext.Response.BodyWriter.WriteAsync(response.imageData, ct);
+            if (response == null)
+            {
+                await SendNotFoundAsync(ct);
+                return;
+            }
+
+            var result = new GetThumbnailDto
+            {
+                imageData = Convert.ToBase64String(response.imageData),
+                fileType = response.fileType,
+                title = response.title,
+                friendTags = response.friendTags,
+                categoryTags = response.categoryTags
+            };
+
+            await SendAsync(result, cancellation: ct);
+
         }
     }
 }

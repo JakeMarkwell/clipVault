@@ -3,4 +3,16 @@
 <div *ngIf="!loading && !error">
   <h2>{{ title }}</h2>
   <img [src]="imageDataUrl" alt="Thumbnail" *ngIf="imageDataUrl" />
+  <div *ngIf="friendTags.length > 0">
+    <strong>Friend Tags:</strong>
+    <span *ngFor="let tag of friendTags; let last = last">
+      {{ tag }}<span *ngIf="!last">, </span>
+    </span>
+  </div>
+  <div *ngIf="categoryTags.length > 0">
+    <strong>Category Tags:</strong>
+    <span *ngFor="let tag of categoryTags; let last = last">
+      {{ tag }}<span *ngIf="!last">, </span>
+    </span>
+  </div>
 </div>
