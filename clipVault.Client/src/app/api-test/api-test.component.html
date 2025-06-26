@@ -1,18 +1,47 @@
-<div *ngIf="loading">Loading...</div>
-<div *ngIf="error" style="color: red;">{{ error }}</div>
-<div *ngIf="!loading && !error">
-  <h2>{{ title }}</h2>
-  <img [src]="imageDataUrl" alt="Thumbnail" *ngIf="imageDataUrl" />
-  <div *ngIf="friendTags.length > 0">
-    <strong>Friend Tags:</strong>
-    <span *ngFor="let tag of friendTags; let last = last">
-      {{ tag }}<span *ngIf="!last">, </span>
-    </span>
-  </div>
-  <div *ngIf="categoryTags.length > 0">
-    <strong>Category Tags:</strong>
-    <span *ngFor="let tag of categoryTags; let last = last">
-      {{ tag }}<span *ngIf="!last">, </span>
-    </span>
-  </div>
+<div class="api-test-container">
+  <mat-card class="api-test-card">
+    <mat-card-header>
+      <mat-card-title><h1>GetThumbnail</h1></mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Thumbnail ID</mat-label>
+        <input matInput [(ngModel)]="thumbnailId" placeholder="Enter thumbnail ID">
+      </mat-form-field>
+
+      <div *ngIf="loading" class="loading-indicator">
+        <mat-spinner diameter="40"></mat-spinner>
+      </div>
+
+      <div *ngIf="error" class="error-message">
+        {{ error }}
+      </div>
+
+      <div *ngIf="!loading && !error">
+        <h3 *ngIf="title">{{ title }}</h3>
+        <div *ngIf="imageDataUrl" class="thumbnail-image-container">
+          <img [src]="imageDataUrl" alt="Thumbnail" class="thumbnail-image">
+        </div>
+        <div *ngIf="friendTags.length > 0" class="tags-section">
+          <strong>Friend Tags:</strong>
+          <span *ngFor="let tag of friendTags; let last = last">
+            {{ tag }}<span *ngIf="!last">, </span>
+          </span>
+        </div>
+        <div *ngIf="categoryTags.length > 0" class="tags-section">
+          <strong>Category Tags:</strong>
+          <span *ngFor="let tag of categoryTags; let last = last">
+            {{ tag }}<span *ngIf="!last">, </span>
+          </span>
+        </div>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="getThumbnail(thumbnailId)">
+        Get Thumbnail
+      </button>
+    </mat-card-actions>
+  </mat-card>
 </div>
