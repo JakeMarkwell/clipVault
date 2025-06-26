@@ -1,22 +1,23 @@
 ﻿using clipVault.Models.Images.GetThumbnail;
 using clipVault.Repositories.Images;
-using clipVault.Scenarios.Images;
 using MediatR;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace clipVault.Handlers.Images
 {
     public class GetThumbnailHandler : IRequestHandler<GetThumbnailRequest, GetThumbnailResponse>
     {
-        private readonly IGetThumbnailScenario _scenario;
+        private readonly IGetThumbnailService _thumbnailService;
 
-        public GetThumbnailHandler(IGetThumbnailScenario scenario)
+        public GetThumbnailHandler(IGetThumbnailService thumbnailService)
         {
-            _scenario = scenario;
+            _thumbnailService = thumbnailService;
         }
 
         public async Task<GetThumbnailResponse> Handle(GetThumbnailRequest request, CancellationToken cancellationToken)
         {
-            return await _scenario.GetThumbnail(request, cancellationToken);
+            return await _thumbnailService.GetThumbnailAsync(request.id, cancellationToken);
         }
     }
 }

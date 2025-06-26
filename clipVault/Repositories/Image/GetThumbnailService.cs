@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace clipVault.Repositories.Images
 {
-    public class GetThumbnailRepository : IGetThumbnailRepository
+    public class GetThumbnailService : IGetThumbnailService
     {
         private readonly BlobServiceClient _blobServiceClient;
 
-        public GetThumbnailRepository(BlobServiceClient blobServiceClient)
+        public GetThumbnailService(BlobServiceClient blobServiceClient)
         {
             _blobServiceClient = blobServiceClient;
         }
@@ -28,16 +28,32 @@ namespace clipVault.Repositories.Images
                 if (properties.Value.Metadata.TryGetValue("id", out var blobId) && blobId == id)
                 {
                     var videoTitle = properties.Value.Metadata["title"];
+
+                    // Extract friend tags and category tags if they exist
+                    string[] friendTags = Array.Empty<string>();
+                    if (properties.Value.Metadata.TryGetValue("friendTags", out var friendTagsString))
+                    {
+                        friendTags = friendTagsString.Split(',', StringSplitOptions.RemoveEmptyEntries);
+                    }
+
+                    string[] categoryTags = Array.Empty<string>();
+                    if (properties.Value.Metadata.TryGetValue("categoryTags", out var categoryTagsString))
+                    {
+                        categoryTags = categoryTagsString.Split(',', StringSplitOptions.RemoveEmptyEntries);
+                    }
+
                     var downloadInfo = await blobClient.DownloadAsync(cancellationToken);
                     using (var memoryStream = new MemoryStream())
                     {
                         await downloadInfo.Value.Content.CopyToAsync(memoryStream, cancellationToken);
-                        var imageData =  memoryStream.ToArray();
+                        var imageData = memoryStream.ToArray();
                         return new GetThumbnailResponse
                         {
                             imageData = imageData,
                             fileType = "image/png",
                             title = videoTitle,
+                            friendTags = friendTags,
+                            categoryTags = categoryTags
                         };
                     }
                 }
@@ -45,7 +61,6 @@ namespace clipVault.Repositories.Images
 
             return null;
         }
-
         public async Task<string> GetThumbnailContentTypeAsync(string id, CancellationToken cancellationToken)
         {
             var containerClient = _blobServiceClient.GetBlobContainerClient("imagestore");

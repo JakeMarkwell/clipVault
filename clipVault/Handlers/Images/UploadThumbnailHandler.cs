@@ -1,8 +1,8 @@
 ﻿using Azure.Storage.Blobs;
-using clipVault.Models.Images;
 using clipVault.Models.Images.UploadThumbnail;
 using MediatR;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -21,6 +21,17 @@ namespace clipVault.Handlers.Images
         {
             var thumbnailContainerClient = _blobServiceClient.GetBlobContainerClient("imagestore");
             var thumbnailBlobClient = thumbnailContainerClient.GetBlobClient(Path.GetFileNameWithoutExtension(request.File.FileName) + ".png");
+
+            // Add friend tags and category tags to metadata if they exist
+            if (request.FriendTags?.Any() == true)
+            {
+                request.Metadata["friendTags"] = string.Join(",", request.FriendTags);
+            }
+
+            if (request.CategoryTags?.Any() == true)
+            {
+                request.Metadata["categoryTags"] = string.Join(",", request.CategoryTags);
+            }
 
             using (var thumbnailStream = new MemoryStream(request.Thumbnail))
             {

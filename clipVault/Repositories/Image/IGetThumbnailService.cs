@@ -2,7 +2,7 @@
 
 namespace clipVault.Repositories.Images
 {
-    public interface IGetThumbnailRepository
+    public interface IGetThumbnailService
     {
         Task<GetThumbnailResponse> GetThumbnailAsync(string id, CancellationToken cancellationToken);
     }

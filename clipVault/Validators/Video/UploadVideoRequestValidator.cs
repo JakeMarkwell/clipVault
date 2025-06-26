@@ -11,8 +11,5 @@ public class UploadVideoRequestValidator : AbstractValidator<UploadVideoRequest>
 
         RuleFor(x => x.Title)
             .NotEmpty().WithMessage("Video title is required.");
-
-        RuleFor(x => x.Tags)
-            .MaximumLength(100).WithMessage("Tags cannot be longer than 100 characters");
     }
 }

@@ -5,9 +5,9 @@ namespace clipVault.Scenarios.Images
 {
     public class GetThumbnailScenario : IGetThumbnailScenario
     {
-        private readonly IGetThumbnailRepository _repository;
+        private readonly IGetThumbnailService _repository;
 
-        public GetThumbnailScenario(IGetThumbnailRepository repository)
+        public GetThumbnailScenario(IGetThumbnailService repository)
         {
             _repository = repository;
         }

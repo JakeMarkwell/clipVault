@@ -18,7 +18,7 @@ export class ApiTestComponent implements OnInit {
   constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
-    //this.getThumbnail('9ee9051d-738e-4fb1-9619-49cc774c1f5e');
+    this.getThumbnail('9ee9051d-738e-4fb1-9619-49cc774c1f5e');
   }
 
   getThumbnail(thumbnailId: string): void {

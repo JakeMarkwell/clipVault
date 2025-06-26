@@ -12,7 +12,7 @@ export class ApiService {
   private api = development.apiUrl;
 
   constructor(private http: HttpClient) {}
-
+  
   // New method to get multiple thumbnails (array)
   getThumbnails(thumbnailId: string): Observable<ThumbnailResponse> {
       return this.http.get<ThumbnailResponse>(`${this.api}/thumbnail/${thumbnailId}`)
