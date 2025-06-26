@@ -1,7 +1,9 @@
+// src/app/models/Thumbnail.ts
+
 export interface ThumbnailResponse {
-    imageData: Blob;
-    fileType: string;
-    title: string;
-    friendTags: string[];
-    categoryTags: string[];
+  imageData: string;
+  fileType: string;
+  title: string;
+  friendTags?: string[];
+  categoryTags?: string[];
 }

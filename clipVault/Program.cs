@@ -2,8 +2,6 @@ using Azure.Storage.Blobs;
 using clipVault.Handlers.Images;
 using clipVault.Repositories.Images;
 using clipVault.Repositories.Video;
-using clipVault.Scenarios.Images;
-using clipVault.Scenarios.Video;
 using clipVault.Services.Images;
 using FastEndpoints;
 using FluentValidation;
@@ -32,18 +30,11 @@ builder.Services.AddSingleton(new BlobServiceClient(builder.Configuration.GetCon
 builder.Services.AddTransient<IVideoRepository, VideoRepository>();
 builder.Services.AddTransient<IGetThumbnailService, GetThumbnailService>();
 
-
-//Scenarios
-builder.Services.AddTransient<IGetThumbnailScenario, GetThumbnailScenario>();
-builder.Services.AddTransient<IUploadVideoScenario, UploadVideoScenario>();
-builder.Services.AddTransient<IDeleteVideoScenario, DeleteVideoScenario>();
-
 //Services
 builder.Services.AddTransient<IThumbnailGenerator, ThumbnailGenerator>();
 
 //Fluent Validators
 builder.Services.AddValidatorsFromAssemblyContaining<UploadVideoRequestValidator>();
-builder.Services.AddValidatorsFromAssemblyContaining<DeleteVideoScenario>();
 builder.Services.AddValidatorsFromAssemblyContaining<GetThumbnailRequestValidator>();
 
 builder.WebHost.ConfigureKestrel(options =>
