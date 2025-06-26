@@ -2,6 +2,7 @@
 .api-test-container {
   display: flex;
   justify-content: center;
+  flex-direction: row; /* Stack cards vertically */
   align-items: center;
   min-height: 100vh; /* Ensures it takes at least full viewport height */
   padding: 20px; /* Add some padding around the card */
@@ -11,7 +12,8 @@
 /* Styles for the Material Card */
 .api-test-card {
   width: 20%; /* Max 20% width of the page */
-  max-height: 75vh; /* Max 40% height of the viewport */
+  height: 60vh; /* Max 75% height of the viewport */
+  margin: 10px; /* Add some space between the cards */
   display: flex;
   flex-direction: column;
   /* background-color is now inherited from the Material theme (typically light) */

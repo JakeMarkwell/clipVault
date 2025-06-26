@@ -28,4 +28,8 @@ export class ApiService {
       })
     );
   }
+
+  uploadVideo(formData: FormData): Observable<any> {
+    return this.http.post(`${this.api}/videos/upload`, formData);
+  } 
 }

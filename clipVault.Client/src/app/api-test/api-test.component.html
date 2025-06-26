@@ -1,28 +1,33 @@
 <div class="api-test-container">
+  <!-- GetThumbnail Card -->
   <mat-card class="api-test-card">
     <mat-card-header>
       <mat-card-title><h1>GetThumbnail</h1></mat-card-title>
     </mat-card-header>
 
     <mat-card-content>
+      <!-- Thumbnail ID Input -->
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>Thumbnail ID</mat-label>
         <input matInput [(ngModel)]="thumbnailId" placeholder="Enter thumbnail ID">
       </mat-form-field>
 
-      <div *ngIf="loading" class="loading-indicator">
+      <!-- Loading/Error Indicators (for thumbnail retrieval) -->
+      <div *ngIf="getThumbnailLoading" class="loading-indicator">
         <mat-spinner diameter="40"></mat-spinner>
       </div>
 
-      <div *ngIf="error" class="error-message">
-        {{ error }}
+      <div *ngIf="getThumbnailError" class="error-message">
+        {{ getThumbnailError }}
       </div>
 
-      <div *ngIf="!loading && !error">
+      <!-- Thumbnail Display Area -->
+      <div *ngIf="!getThumbnailLoading && !getThumbnailError">
         <h3 *ngIf="title">{{ title }}</h3>
         <div *ngIf="imageDataUrl" class="thumbnail-image-container">
           <img [src]="imageDataUrl" alt="Thumbnail" class="thumbnail-image">
         </div>
+        <!-- Tags from fetched thumbnail -->
         <div *ngIf="friendTags.length > 0" class="tags-section">
           <strong>Friend Tags:</strong>
           <span *ngFor="let tag of friendTags; let last = last">
@@ -43,5 +48,40 @@
         Get Thumbnail
       </button>
     </mat-card-actions>
+  </mat-card>
+
+  <!-- UploadVideo Card -->
+  <mat-card class="api-test-card">
+    <mat-card-header>
+      <mat-card-title><h1>UploadVideo</h1></mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Video Title</mat-label>
+        <input matInput [(ngModel)]="uploadTitle" placeholder="Enter video title">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Friend Tags (comma-separated)</mat-label>
+        <input matInput [(ngModel)]="uploadFriendTagsInput" placeholder="e.g., John, Jane">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Category Tags (comma-separated)</mat-label>
+        <input matInput [(ngModel)]="uploadCategoryTagsInput" placeholder="e.g., Nature, Travel">
+      </mat-form-field>
+
+      <input type="file" (change)="onFileSelected($event)" accept="video/*">
+
+      <button mat-raised-button color="accent" (click)="uploadVideo()" [disabled]="!selectedFile || uploadVideoLoading">
+        Upload Video
+      </button>
+      <mat-progress-bar *ngIf="uploadVideoLoading" mode="indeterminate"></mat-progress-bar>
+      <div *ngIf="uploadVideoError" class="error-message">
+        {{ uploadVideoError }}
+      </div>
+    </mat-card-content>
+
   </mat-card>
 </div>
