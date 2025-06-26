@@ -1,9 +1,8 @@
-// src/app/models/Thumbnail.ts
-
 export interface ThumbnailResponse {
+  id?: string;
   imageData: string;
   fileType: string;
   title: string;
-  friendTags?: string;
-  categoryTags?: string;
+  friendTags: string;
+  categoryTags: string;
 }

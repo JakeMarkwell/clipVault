@@ -1,19 +1,17 @@
-/* Import Google Fonts */
+
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@400;500&display=swap');
 
-/* Global styles for a modern look, inspired by angular.dev */
+
 html, body {
-  font-family: 'Roboto', sans-serif; /* Primary font for general text */
+  font-family: 'Roboto', sans-serif;
   margin: 0;
   padding: 0;
   height: 100%;
-  background-color: #f5f5f5; /* Light grey background */
-  color: #333; /* Dark grey text for readability */
+  background-color: #362B32;
   line-height: 1.6;
-  box-sizing: border-box; /* Ensures padding and border are included in the element's total width and height */
+  box-sizing: border-box; 
 }
 
-/* Apply box-sizing globally */
 *, *::before, *::after {
   box-sizing: inherit;
 }
@@ -21,16 +19,16 @@ html, body {
 /* Basic typography for headings */
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Roboto', sans-serif;
-  font-weight: 500; /* Medium weight for headings */
+  font-weight: 500; 
   margin-top: 1em;
   margin-bottom: 0.5em;
-  color: #333; /* Use a dark color for headings for readability on light backgrounds */
+  color: #333; 
 }
 
-/* Style for code snippets (like Roboto Mono on angular.dev) */
+
 code, pre {
   font-family: 'Roboto Mono', monospace;
-  background-color: #e0e0e0; /* Light grey background for code */
+  background-color: #e0e0e0; 
   padding: 2px 4px;
   border-radius: 4px;
   font-size: 0.9em;
@@ -39,13 +37,13 @@ code, pre {
 pre {
   display: block;
   padding: 10px;
-  overflow-x: auto; /* Enable horizontal scrolling for long code lines */
+  overflow-x: auto; 
   border-radius: 8px;
 }
 
 /* Link styling */
 a {
-  color: #007bff; /* Standard blue for links */
+  color: #007bff;
   text-decoration: none;
 }
 
@@ -53,24 +51,21 @@ a:hover {
   text-decoration: underline;
 }
 
-/* Ensure Angular Material components inherit font styles */
 .mat-typography {
   font-family: 'Roboto', sans-serif;
 }
 
-/* Adjustments for the api-test component's specific card styling */
-/* (These are already in api-test.component.css, but global styles might influence them) */
+
 .api-test-card .mat-card-title h1 {
-  font-size: 24px; /* Adjust heading size within the card title */
-  margin: 0; /* Remove default h1 margin */
+  font-size: 24px; 
+  margin: 0;
 }
 
-/* Override default mat-card-content padding if needed, or ensure it's consistent */
+
 .mat-card-content {
-  padding: 16px; /* Ensure consistent padding */
+  padding: 16px;
 }
 
-/* Ensure mat-form-field and input text also use Roboto */
 .mat-form-field {
   font-family: 'Roboto', sans-serif;
 }

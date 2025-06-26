@@ -31,19 +31,17 @@ export class ApiTestComponent implements OnInit {
   friendTags: string = '';
   categoryTags: string = '';
 
-  // State for GetThumbnail Card
   getThumbnailLoading: boolean = true;
   getThumbnailError: string | null = null;
   thumbnailId: string = '9ee9051d-738e-4fb1-9619-49cc774c1f5e';
 
-  // State for UploadVideo Card
-  uploadVideoLoading: boolean = false; // Initialize to false, as upload isn't active on load
+  uploadVideoLoading: boolean = false; 
   uploadVideoError: string | null = null;
   selectedFile: File | null = null;
   uploadTitle: string = '';
-  uploadFriendTagsInput: string = ''; // For comma-separated input
-  uploadCategoryTagsInput: string = ''; // For comma-separated input
-  videoUploadProgress: number = 0; // This can remain shared or be moved if needed for more granular progress
+  uploadFriendTagsInput: string = ''; 
+  uploadCategoryTagsInput: string = ''; 
+  videoUploadProgress: number = 0; 
 
   constructor(private apiService: ApiService) {}
 
@@ -71,7 +69,6 @@ export class ApiTestComponent implements OnInit {
 
   onFileSelected(event: any): void {
     this.selectedFile = event.target.files[0] as File;
-    // Reset upload-specific states when a new file is selected
     this.uploadVideoError = null;
     this.uploadVideoLoading = false;
   }
@@ -93,11 +90,9 @@ export class ApiTestComponent implements OnInit {
 
     this.apiService.uploadVideo(formData)
       .subscribe({
-        // You might want to add HttpEventType.UploadProgress handling here for actual progress bar
         next: (response) => {
           console.log('Upload successful', response);
           this.uploadVideoLoading = false;
-          // Optionally clear form fields on success
           this.selectedFile = null;
           this.uploadTitle = '';
           this.uploadFriendTagsInput = '';

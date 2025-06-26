@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ApiTestComponent } from './api-test/api-test.component';
+import { HomeComponent } from './home/home.component';
 
-const routes: Routes = [ { path: 'api-test', component: ApiTestComponent },
-  { path: '', redirectTo: '/api-test', pathMatch: 'full' },
-  { path: '**', redirectTo: '/api-test'}]
+export const routes: Routes = [
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
+  { path: 'api-test', component: ApiTestComponent }
+]
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

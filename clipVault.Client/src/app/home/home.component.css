@@ -1,0 +1,81 @@
+.home-container {
+  padding: 20px;
+}
+
+.page-title {
+  margin-bottom: 30px;
+  font-weight: 500;
+}
+
+.thumbnails-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 24px;
+}
+
+.thumbnail-card {
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.thumbnail-card:hover {
+  box-shadow: 0 6px 12px rgba(54, 43, 50, 0.3);
+  transform: translateY(-5px);
+}
+
+.card-title {
+  color: #FFFFF0;
+  font-size: 16px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  justify-content: center;
+}
+
+.image-container {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 Aspect Ratio */
+  overflow: hidden;
+  flex-grow: 1;
+  border: .5px solid #FFFFF0;
+}
+
+.thumbnail-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.thumbnail-card:hover .thumbnail-image {
+  transform: scale(1.05);
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  padding: 60px 0;
+}
+
+.error-message {
+  color: #f44336;
+  text-align: center;
+  padding: 20px;
+  font-size: 16px;
+}
+
+.mat-mdc-card-header {
+    display: flex;
+    padding: 16px 16px 0;
+    justify-content: center;
+}

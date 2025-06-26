@@ -28,6 +28,24 @@ export class ApiService {
       })
     );
   }
+  
+  getAllThumbnails(limit: number = 16): Observable<ThumbnailResponse[]> {
+    return this.http.get<any>(`${this.api}/thumbnails?limit=${limit}`).pipe(
+      map(response => {
+        return response.thumbnails.map((item: any) => {
+          const imageUrl = `data:${item.fileType};base64,${item.imageData}`;
+          return {
+            id: item.id,
+            imageData: imageUrl,
+            fileType: item.fileType,
+            title: item.title,
+            friendTags: item.friendTags,
+            categoryTags: item.categoryTags
+          };
+        });
+      })
+    );
+  }
 
   uploadVideo(formData: FormData): Observable<any> {
     return this.http.post(`${this.api}/videos/upload`, formData);
