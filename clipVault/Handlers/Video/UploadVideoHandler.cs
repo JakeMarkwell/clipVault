@@ -23,7 +23,9 @@ namespace clipVault.Handlers.Videos
             var metadata = new Dictionary<string, string>
             {
                 { "id", Guid.NewGuid().ToString() },
-                { "title", request.Title }
+                { "title", request.Title },
+                { "friendTags", request.FriendTags.ToLower()},
+                { "categoryTags", request.CategoryTags.ToLower()}
             };
 
             await _videoRepository.UploadVideoAsync(request.File, metadata, cancellationToken);

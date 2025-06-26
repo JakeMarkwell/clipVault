@@ -28,8 +28,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 export class ApiTestComponent implements OnInit {
   title: string = '';
   imageDataUrl: string = '';
-  friendTags: string[] = [];
-  categoryTags: string[] = [];
+  friendTags: string = '';
+  categoryTags: string = '';
 
   // State for GetThumbnail Card
   getThumbnailLoading: boolean = true;
@@ -58,8 +58,8 @@ export class ApiTestComponent implements OnInit {
       next: (response) => {
         this.title = response.title;
         this.imageDataUrl = response.imageData;
-        this.friendTags = response.friendTags ?? [];
-        this.categoryTags = response.categoryTags ?? [];
+        this.friendTags = response.friendTags ?? '';
+        this.categoryTags = response.categoryTags ?? '';
         this.getThumbnailLoading = false;
       },
       error: (err) => {
@@ -86,13 +86,9 @@ export class ApiTestComponent implements OnInit {
     const formData = new FormData();
     formData.append('file', this.selectedFile, this.selectedFile.name);
     formData.append('title', this.uploadTitle);
-    
-    // Parse comma-separated tag inputs into arrays
-    const friendTagsArray = this.uploadFriendTagsInput.split(',').map(tag => tag.trim()).filter(tag => tag.length > 0);
-    const categoryTagsArray = this.uploadCategoryTagsInput.split(',').map(tag => tag.trim()).filter(tag => tag.length > 0);
 
-    formData.append('friendTags', JSON.stringify(friendTagsArray)); 
-    formData.append('categoryTags', JSON.stringify(categoryTagsArray)); 
+    formData.append('friendTags', this.friendTags); 
+    formData.append('categoryTags', this.categoryTags); 
 
 
     this.apiService.uploadVideo(formData)

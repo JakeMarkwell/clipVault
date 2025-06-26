@@ -4,6 +4,6 @@ export interface ThumbnailResponse {
   imageData: string;
   fileType: string;
   title: string;
-  friendTags?: string[];
-  categoryTags?: string[];
+  friendTags?: string;
+  categoryTags?: string;
 }

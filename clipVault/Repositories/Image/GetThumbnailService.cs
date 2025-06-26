@@ -29,18 +29,9 @@ namespace clipVault.Repositories.Images
                 {
                     var videoTitle = properties.Value.Metadata["title"];
 
-                    // Extract friend tags and category tags if they exist
-                    string[] friendTags = Array.Empty<string>();
-                    if (properties.Value.Metadata.TryGetValue("friendTags", out var friendTagsString))
-                    {
-                        friendTags = friendTagsString.Split(',', StringSplitOptions.RemoveEmptyEntries);
-                    }
+                    var friendTags = properties.Value.Metadata["friendTags"];
+                    var categoryTags = properties.Value.Metadata["categoryTags"];
 
-                    string[] categoryTags = Array.Empty<string>();
-                    if (properties.Value.Metadata.TryGetValue("categoryTags", out var categoryTagsString))
-                    {
-                        categoryTags = categoryTagsString.Split(',', StringSplitOptions.RemoveEmptyEntries);
-                    }
 
                     var downloadInfo = await blobClient.DownloadAsync(cancellationToken);
                     using (var memoryStream = new MemoryStream())

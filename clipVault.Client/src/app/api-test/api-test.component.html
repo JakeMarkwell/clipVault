@@ -30,15 +30,11 @@
         <!-- Tags from fetched thumbnail -->
         <div *ngIf="friendTags.length > 0" class="tags-section">
           <strong>Friend Tags:</strong>
-          <span *ngFor="let tag of friendTags; let last = last">
-            {{ tag }}<span *ngIf="!last">, </span>
-          </span>
+          <span> {{friendTags}} </span>
         </div>
         <div *ngIf="categoryTags.length > 0" class="tags-section">
           <strong>Category Tags:</strong>
-          <span *ngFor="let tag of categoryTags; let last = last">
-            {{ tag }}<span *ngIf="!last">, </span>
-          </span>
+          <span> {{categoryTags}} </span>
         </div>
       </div>
     </mat-card-content>
