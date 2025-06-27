@@ -1,5 +1,13 @@
 <ng-container *ngIf="thumbnails && thumbnails.length > 0">
   <div class="home-video-container">
+    <!-- Add the logo header here -->
+    <div class="home-logo-header" #logoHeader>
+      <div class="clipvault-logo-stack">
+        <div class="clipvault-logo-clip">Clip</div>
+        <div class="clipvault-logo-vault">Vault</div>
+      </div>
+    </div>
+    
     <div class="home-video-grid">
       <app-home-video-card *ngFor="let thumbnail of thumbnails"
                          [imageData]="thumbnail.imageData"

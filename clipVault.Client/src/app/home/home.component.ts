@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -19,12 +19,14 @@ import { HomeVideoCardComponent } from '../home-video-card/home-video-card.compo
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit {
   thumbnails: ThumbnailResponse[] = [];
   isLoading = true;
   isLoadingFadingOut = false;
   error: string | null = null;
-
+  
+  @ViewChild('logoHeader') logoHeader!: ElementRef;
+  
   constructor(
     private apiService: ApiService,
     private router: Router
@@ -32,6 +34,24 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadThumbnails();
+  }
+  
+  ngAfterViewInit(): void {
+    // Initial check for scroll position
+    this.onScroll();
+  }
+  
+  @HostListener('window:scroll', ['$event'])
+  onScroll(): void {
+    if (!this.logoHeader) return;
+    
+    const scrollPosition = window.scrollY;
+    // Start fading from 50px scroll, completely transparent by 200px
+    const fadeStart = 50;
+    const fadeEnd = 200;
+    const opacity = 1 - Math.min(Math.max((scrollPosition - fadeStart) / (fadeEnd - fadeStart), 0), 1);
+    
+    this.logoHeader.nativeElement.style.opacity = opacity.toString();
   }
 
   loadThumbnails(): void {
@@ -42,22 +62,18 @@ export class HomeComponent implements OnInit {
       next: (thumbnails) => {
         this.thumbnails = thumbnails;
         
-        // Start the fade out transition
         this.isLoadingFadingOut = true;
         
-        // Remove loading container after animation completes
         setTimeout(() => {
           this.isLoading = false;
-        }, 600); // Match this with the CSS transition timing
+        }, 600); 
       },
       error: (err) => {
         console.error('Error loading thumbnails', err);
         this.error = 'Failed to load thumbnails. Please try again later.';
         
-        // Start the fade out transition on error too
         this.isLoadingFadingOut = true;
         
-        // Remove loading container after animation completes
         setTimeout(() => {
           this.isLoading = false;
         }, 600);
@@ -66,7 +82,6 @@ export class HomeComponent implements OnInit {
   }
 
   navigateToVideo(thumbnailId?: string): void {
-    // Navigate to individual video view (to be implemented)
     this.router.navigate(['/video/', thumbnailId]);
   }
 }

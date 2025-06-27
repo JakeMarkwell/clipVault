@@ -16,8 +16,8 @@ html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  background: #B9B28A;
-  background-color: linear-gradient(90deg,rgba(45, 60, 64, 1) 0%, rgba(50, 50, 61, 1) 38%, rgba(87, 87, 71, 1) 100%);
+  background: #504B38;
+  background-color: #504B38;
   line-height: 1.6;
   box-sizing: border-box; 
 }

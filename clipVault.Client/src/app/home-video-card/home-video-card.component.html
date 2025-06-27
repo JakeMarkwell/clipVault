@@ -2,13 +2,8 @@
   <div class="card-image-container">
     <img [src]="imageData" alt="Video thumbnail" class="card-image" />
     <div class="card-image-overlay"></div>
-  </div>
-  <div class="card-content">
-    <h3 class="card-title">{{ title }}</h3>
-    <div class="card-tags">
-      <span *ngIf="friendTags" class="tag">{{ friendTags }}</span>
-      <span *ngIf="categoryTags" class="tag tag-secondary">{{ categoryTags }}</span>
+    <div class="card-title-container">
+      <h3 class="card-title">{{ title }}</h3>
     </div>
-    <ng-content></ng-content>
   </div>
 </div>

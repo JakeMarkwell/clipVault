@@ -1,5 +1,5 @@
 .home-video-container {
-  padding: 48px 0 0 0;
+  padding: 0px 0 0 0;
   background: #504B38;
   min-height: 100vh;
   color: #504B38;
@@ -9,9 +9,9 @@
 .home-video-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 40px 32px;
+  gap: 32px 32px;
   margin: 0 auto;
-  padding: 5rem 5rem;
+  padding: 5rem 15rem;
 }
 .loader {
   width: 48px;
@@ -58,6 +58,35 @@
 .loading-container.fade-out {
   opacity: 0;
   pointer-events: none;
+}
+
+.home-logo-header {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding-bottom: 2rem;
+  margin-left: 2rem;
+  transition: opacity 0.3s ease-out;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.home-logo-header .clipvault-logo-stack {
+  margin: 0;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
+}
+
+.home-video-grid {
+  padding-top: 0;
+}
+
+.home-logo-header .clipvault-logo-clip {
+  color: #fff;
+}
+
+.home-logo-header .clipvault-logo-vault {
+  color: #928DAB;
 }
 
 @keyframes fadeIn {
