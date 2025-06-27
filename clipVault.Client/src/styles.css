@@ -7,7 +7,8 @@ html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  background-color: #362B32;
+  background: #B9B28A;
+  background-color: linear-gradient(90deg,rgba(45, 60, 64, 1) 0%, rgba(50, 50, 61, 1) 38%, rgba(87, 87, 71, 1) 100%);
   line-height: 1.6;
   box-sizing: border-box; 
 }
@@ -22,13 +23,13 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 500; 
   margin-top: 1em;
   margin-bottom: 0.5em;
-  color: #333; 
+  color: #EBE5C2; 
 }
 
 
 code, pre {
   font-family: 'Roboto Mono', monospace;
-  background-color: #e0e0e0; 
+  background-color: #EBE5C2; 
   padding: 2px 4px;
   border-radius: 4px;
   font-size: 0.9em;

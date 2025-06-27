@@ -5,6 +5,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ApiService } from '../api.service';
 import { ThumbnailResponse } from '../models/Thumbnail';
 import { Router } from '@angular/router';
+import { HomeVideoCardComponent } from '../home-video-card/home-video-card.component';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,8 @@ import { Router } from '@angular/router';
   imports: [
     CommonModule,
     MatCardModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    HomeVideoCardComponent
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
