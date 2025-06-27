@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { ApiTestComponent } from './api-test/api-test.component';
 import { ApiService } from './api.service';
 import { HomeComponent } from './home/home.component';
+import { VideoComponent } from './video/video.component';
 
 @NgModule({
   declarations: [

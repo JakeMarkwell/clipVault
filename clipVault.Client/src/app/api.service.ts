@@ -50,4 +50,19 @@ export class ApiService {
   uploadVideo(formData: FormData): Observable<any> {
     return this.http.post(`${this.api}/videos/upload`, formData);
   } 
+
+  getVideo(videoId: string): Observable<any> {
+    return this.http.get<any>(`${this.api}/video/${videoId}`).pipe(
+      map(response => {
+        return {
+          id: response.id,
+          title: response.title,
+          videoUrl: `${this.api}/video/stream/${videoId}`,
+          friendTags: response.friendTags,
+          categoryTags: response.categoryTags
+        };
+      })
+    );
+  }
+
 }

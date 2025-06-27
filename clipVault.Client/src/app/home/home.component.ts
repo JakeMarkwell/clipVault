@@ -49,6 +49,6 @@ export class HomeComponent implements OnInit {
 
   navigateToVideo(thumbnailId?: string): void {
     // Navigate to individual video view (to be implemented)
-    this.router.navigate(['/video', thumbnailId]);
+    this.router.navigate(['/video/', thumbnailId]);
   }
 }
