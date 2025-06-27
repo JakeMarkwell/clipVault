@@ -22,6 +22,7 @@ import { HomeVideoCardComponent } from '../home-video-card/home-video-card.compo
 export class HomeComponent implements OnInit {
   thumbnails: ThumbnailResponse[] = [];
   isLoading = true;
+  isLoadingFadingOut = false;
   error: string | null = null;
 
   constructor(
@@ -35,16 +36,31 @@ export class HomeComponent implements OnInit {
 
   loadThumbnails(): void {
     this.isLoading = true;
+    this.isLoadingFadingOut = false;
     this.error = null;
     this.apiService.getAllThumbnails(16).subscribe({
       next: (thumbnails) => {
         this.thumbnails = thumbnails;
-        this.isLoading = false;
+        
+        // Start the fade out transition
+        this.isLoadingFadingOut = true;
+        
+        // Remove loading container after animation completes
+        setTimeout(() => {
+          this.isLoading = false;
+        }, 600); // Match this with the CSS transition timing
       },
       error: (err) => {
         console.error('Error loading thumbnails', err);
         this.error = 'Failed to load thumbnails. Please try again later.';
-        this.isLoading = false;
+        
+        // Start the fade out transition on error too
+        this.isLoadingFadingOut = true;
+        
+        // Remove loading container after animation completes
+        setTimeout(() => {
+          this.isLoading = false;
+        }, 600);
       }
     });
   }

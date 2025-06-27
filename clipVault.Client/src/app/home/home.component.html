@@ -1,17 +1,27 @@
-<div class="home-video-container">
-  <div class="home-video-grid">
-    <app-home-video-card *ngFor="let thumbnail of thumbnails"
+<ng-container *ngIf="thumbnails && thumbnails.length > 0">
+  <div class="home-video-container">
+    <div class="home-video-grid">
+      <app-home-video-card *ngFor="let thumbnail of thumbnails"
                          [imageData]="thumbnail.imageData"
                          [title]="thumbnail.title"
                          [friendTags]="thumbnail.friendTags"
                          [categoryTags]="thumbnail.categoryTags"
                          (click)="navigateToVideo(thumbnail.id)">
-    </app-home-video-card>
+      </app-home-video-card>
+    </div>
+  </div>
+</ng-container>
+
+<div *ngIf="isLoading" class="loading-container" [ngClass]="{'fade-out': isLoadingFadingOut}">
+  <div class="loading-container-content">
+    <div class="clipvault-logo-stack">
+      <div class="clipvault-logo-clip">Clip</div>
+      <div class="clipvault-logo-vault">Vault</div>
+    </div>
+    <span class="loader"></span>
   </div>
 </div>
-<div *ngIf="isLoading" class="loading-container">
-  <mat-spinner diameter="50"></mat-spinner>
-</div>
+
 <div *ngIf="error" class="error-message">
   {{ error }}
 </div>

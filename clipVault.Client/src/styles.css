@@ -1,6 +1,15 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@400;500&display=swap');
 
+@font-face {
+  font-family: 'Blastimo';
+  src: url('/assets/fonts/Blastimo.woff2') format('woff2'),
+       url('/assets/fonts/Blastimo.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
 
 html, body {
   font-family: 'Roboto', sans-serif;
