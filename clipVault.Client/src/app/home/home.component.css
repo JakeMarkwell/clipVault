@@ -1,17 +1,20 @@
 .home-video-container {
   padding: 0px 0 0 0;
-  background: #504B38;
+  background: #1c3646;
   min-height: 100vh;
-  color: #504B38;
+  color: #1c3646;
   animation: fadeIn 0.8s ease-out forwards;
+    -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 }
 
 .home-video-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 32px 32px;
+  gap: 16px 16px;
   margin: 0 auto;
-  padding: 5rem 15rem;
+  width: 75%;
 }
 .loader {
   width: 48px;
@@ -51,7 +54,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  background: #504B38;
+  background: #1c3646;
   z-index: 100;
   transition: opacity 0.6s ease-out;
 }
@@ -65,7 +68,7 @@
   justify-content: center;
   width: 100%;
   padding-bottom: 2rem;
-  margin-left: 2rem;
+  padding-left: 2rem;
   transition: opacity 0.3s ease-out;
   position: sticky;
   top: 0;
@@ -153,6 +156,9 @@
   z-index: 2;
   letter-spacing: -0.1em;
   text-shadow: 0 2px 8px rgba(80,75,56,0.18);
+    -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 }
 
 .clipvault-logo-vault {
@@ -165,6 +171,9 @@
   z-index: 1;
   letter-spacing: -0.1em;
   text-shadow: 0 2px 8px rgba(80,75,56,0.10);
+    -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 }
 .loading-container-content
 {

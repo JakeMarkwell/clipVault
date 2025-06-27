@@ -16,10 +16,16 @@ html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  background: #504B38;
-  background-color: #504B38;
+  background: #1E3E62;
+  background-color: #1E3E62;
   line-height: 1.6;
   box-sizing: border-box; 
+  background: rgb(230, 227, 227);
+   overflow-y: scroll;
+}
+
+body::-webkit-scrollbar {
+   display: none;
 }
 
 *, *::before, *::after {

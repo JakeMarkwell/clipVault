@@ -1,5 +1,5 @@
 .card-root {
-  background: #ffffff9d;
+  background: transparent;
   border-radius: 16px;
   box-shadow: 0 8px 32px 0 rgba(31,28,44,0.10);
   overflow: hidden;
@@ -8,7 +8,7 @@
   height: 240px;
   width: 100%;
   position: relative;
-  padding: 8px;
+  padding: 4px;
 }
 
 .card-root:hover {
@@ -29,12 +29,14 @@
   height: 100%;
   object-fit: cover;
   display: block;
+  border: solid 2px rgb(255, 255, 255);
+  border-radius: 16px;
 }
 
 .card-image-overlay {
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(31, 28, 44, 0.45);
+  background: rgba(53, 52, 61, 0.274);
   pointer-events: none;
 }
 
