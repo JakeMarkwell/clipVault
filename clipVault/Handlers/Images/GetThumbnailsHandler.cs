@@ -6,16 +6,16 @@ namespace clipVault.Handlers.Images
 {
     public class GetThumbnailsHandler : IRequestHandler<GetThumbnailsRequest, GetThumbnailsResponse>
     {
-        private readonly IGetThumbnailsService _thumbnailsService;
+        private readonly IThumbnailService _thumbnailService;
 
-        public GetThumbnailsHandler(IGetThumbnailsService thumbnailsService)
+        public GetThumbnailsHandler(IThumbnailService thumbnailService)
         {
-            _thumbnailsService = thumbnailsService;
+            _thumbnailService = thumbnailService;
         }
 
         public async Task<GetThumbnailsResponse> Handle(GetThumbnailsRequest request, CancellationToken cancellationToken)
         {
-            return await _thumbnailsService.GetThumbnailsAsync(request.Limit, cancellationToken);
+            return await _thumbnailService.GetThumbnailsAsync(request.Limit, cancellationToken);
         }
     }
 }

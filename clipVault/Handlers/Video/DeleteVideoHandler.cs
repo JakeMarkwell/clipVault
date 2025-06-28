@@ -1,4 +1,5 @@
 using clipVault.Models.Video.DeleteVideo;
+using clipVault.Repositories.Images;
 using clipVault.Repositories.Video;
 using MediatR;
 using System.Threading;
@@ -9,16 +10,18 @@ namespace clipVault.Handlers.Video
     public class DeleteVideoHandler : IRequestHandler<DeleteVideoRequest, DeleteVideoResponse>
     {
         private readonly IVideoRepository _videoRepository;
+        private readonly IThumbnailService _thumbnailService;
 
-        public DeleteVideoHandler(IVideoRepository videoRepository)
+        public DeleteVideoHandler(IVideoRepository videoRepository, IThumbnailService thumbnailService)
         {
             _videoRepository = videoRepository;
+            _thumbnailService = thumbnailService;
         }
 
         public async Task<DeleteVideoResponse> Handle(DeleteVideoRequest request, CancellationToken cancellationToken)
         {
             var videoDeleted = await _videoRepository.DeleteVideoAsync(request.Id, cancellationToken);
-            var thumbnailDeleted = await _videoRepository.DeleteThumbnailAsync(request.Id, cancellationToken);
+            var thumbnailDeleted = await _thumbnailService.DeleteThumbnailAsync(request.Id, cancellationToken);
 
             if (!videoDeleted || !thumbnailDeleted)
             {

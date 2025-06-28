@@ -1,5 +1,6 @@
 ﻿using clipVault.Models.Images.UploadThumbnail;
 using clipVault.Models.Videos.UploadVideo;
+using clipVault.Repositories.Images;
 using clipVault.Repositories.Video;
 using MediatR;
 using System.Threading;
@@ -10,11 +11,13 @@ namespace clipVault.Handlers.Videos
     public class UploadVideoHandler : IRequestHandler<UploadVideoRequest, UploadVideoResponse>
     {
         private readonly IVideoRepository _videoRepository;
+        private readonly IThumbnailService _thumbnailService;
         private readonly IMediator _mediator;
 
-        public UploadVideoHandler(IVideoRepository videoRepository, IMediator mediator)
+        public UploadVideoHandler(IVideoRepository videoRepository, IMediator mediator, IThumbnailService thumbnailService)
         {
             _videoRepository = videoRepository;
+            _thumbnailService = thumbnailService;
             _mediator = mediator;
         }
 
@@ -30,7 +33,7 @@ namespace clipVault.Handlers.Videos
 
             await _videoRepository.UploadVideoAsync(request.File, metadata, cancellationToken);
 
-            var thumbnail = await _videoRepository.GenerateThumbnailAsync(request.File, cancellationToken);
+            var thumbnail = await _thumbnailService.GenerateThumbnailAsync(request.File, cancellationToken);
             var thumbnailRequest = new UploadThumbnailRequest
             {
                 File = request.File,

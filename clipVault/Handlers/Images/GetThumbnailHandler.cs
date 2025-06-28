@@ -8,9 +8,9 @@ namespace clipVault.Handlers.Images
 {
     public class GetThumbnailHandler : IRequestHandler<GetThumbnailRequest, GetThumbnailResponse>
     {
-        private readonly IGetThumbnailService _thumbnailService;
+        private readonly IThumbnailService _thumbnailService;
 
-        public GetThumbnailHandler(IGetThumbnailService thumbnailService)
+        public GetThumbnailHandler(IThumbnailService thumbnailService)
         {
             _thumbnailService = thumbnailService;
         }

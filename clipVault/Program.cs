@@ -2,7 +2,6 @@ using Azure.Storage.Blobs;
 using clipVault.Handlers.Images;
 using clipVault.Repositories.Images;
 using clipVault.Repositories.Video;
-using clipVault.Services.Images;
 using FastEndpoints;
 using FluentValidation;
 using Microsoft.AspNetCore.Http.Features;
@@ -29,11 +28,7 @@ builder.Services.AddSingleton(new BlobServiceClient(builder.Configuration.GetCon
 
 //Repositories
 builder.Services.AddTransient<IVideoRepository, VideoRepository>();
-builder.Services.AddTransient<IGetThumbnailService, GetThumbnailService>();
-builder.Services.AddTransient<IGetThumbnailsService, GetThumbnailsService>();
-
-//Services
-builder.Services.AddTransient<IThumbnailGenerator, ThumbnailGenerator>();
+builder.Services.AddTransient<IThumbnailService, ThumbnailService>();
 
 //Fluent Validators
 builder.Services.AddValidatorsFromAssemblyContaining<UploadVideoRequestValidator>();

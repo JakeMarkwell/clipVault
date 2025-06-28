@@ -2,21 +2,20 @@
 using Azure.Storage.Blobs.Models;
 using Azure.Storage.Sas;
 using clipVault.Models.Video.GetVideo;
-using clipVault.Services.Images;
-
+using clipVault.Repositories.Images;
 namespace clipVault.Repositories.Video
 {
     public class VideoRepository : IVideoRepository
     {
         private readonly BlobServiceClient _blobServiceClient;
-        private readonly IThumbnailGenerator _thumbnailGenerator;
+        private readonly IThumbnailService _thumbnailService;
         private readonly string _containerName = "videos";
 
 
-        public VideoRepository(BlobServiceClient blobServiceClient, IThumbnailGenerator thumbnailGenerator)
+        public VideoRepository(BlobServiceClient blobServiceClient, IThumbnailService thumbnailService)
         {
             _blobServiceClient = blobServiceClient;
-            _thumbnailGenerator = thumbnailGenerator;
+            _thumbnailService = thumbnailService;
         }
 
         public async Task UploadVideoAsync(IFormFile file, Dictionary<string, string> metadata, CancellationToken cancellationToken)
@@ -46,29 +45,6 @@ namespace clipVault.Repositories.Video
             }
 
             return false;
-        }
-
-        public async Task<bool> DeleteThumbnailAsync(string id, CancellationToken cancellationToken)
-        {
-            var containerClient = _blobServiceClient.GetBlobContainerClient("imagestore");
-            var blobs = containerClient.GetBlobsAsync(BlobTraits.Metadata, cancellationToken: cancellationToken);
-            await foreach (var blob in blobs)
-            {
-                if (blob.Metadata.ContainsKey("id") && blob.Metadata["id"] == id)
-                {
-                    var blobClient = containerClient.GetBlobClient(blob.Name);
-                    var response = await blobClient.DeleteIfExistsAsync(DeleteSnapshotsOption.IncludeSnapshots, cancellationToken: cancellationToken);
-                    return response.Value;
-                }
-            }
-
-            return false;
-        }
-
-
-        public async Task<byte[]> GenerateThumbnailAsync(IFormFile file, CancellationToken cancellationToken)
-        {
-            return await _thumbnailGenerator.GenerateThumbnailAsync(file, cancellationToken);
         }
 
         public async Task<VideoDto?> GetVideoAsync(string videoGuid, CancellationToken cancellationToken)
