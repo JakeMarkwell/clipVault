@@ -1,8 +1,8 @@
 .home-video-container {
   padding: 0px 0 0 0;
-  background: #1c3646;
+  background: #242B33;
   min-height: 100vh;
-  color: #1c3646;
+  color: #242B33;
   animation: fadeIn 0.8s ease-out forwards;
     -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
@@ -54,7 +54,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  background: #1c3646;
+  background: #242B33;
   z-index: 100;
   transition: opacity 0.6s ease-out;
 }

@@ -78,7 +78,6 @@ export class VideoComponent implements OnInit {
 
   formatTags(tags: string | null): string[] {
   if (!tags) return [];
-  // Remove all double quotes before splitting
   return tags.replace(/"/g, '').split(',').map(tag => tag.trim()).filter(tag => tag.length > 0);
 }
 }
