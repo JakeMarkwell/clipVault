@@ -84,8 +84,9 @@ export class ApiTestComponent implements OnInit {
     formData.append('file', this.selectedFile, this.selectedFile.name);
     formData.append('title', this.uploadTitle);
 
-    formData.append('friendTags', this.friendTags); 
-    formData.append('categoryTags', this.categoryTags); 
+    formData.append('friendTags', this.uploadFriendTagsInput); 
+    formData.append('categoryTags', this.uploadCategoryTagsInput); 
+
 
 
     this.apiService.uploadVideo(formData)
