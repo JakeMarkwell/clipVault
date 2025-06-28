@@ -1,5 +1,7 @@
 ﻿using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
+using Azure.Storage.Sas;
+using clipVault.Models.Video.GetVideo;
 using clipVault.Services.Images;
 
 namespace clipVault.Repositories.Video
@@ -8,6 +10,8 @@ namespace clipVault.Repositories.Video
     {
         private readonly BlobServiceClient _blobServiceClient;
         private readonly IThumbnailGenerator _thumbnailGenerator;
+        private readonly string _containerName = "videos";
+
 
         public VideoRepository(BlobServiceClient blobServiceClient, IThumbnailGenerator thumbnailGenerator)
         {
@@ -66,5 +70,64 @@ namespace clipVault.Repositories.Video
         {
             return await _thumbnailGenerator.GenerateThumbnailAsync(file, cancellationToken);
         }
+
+        public async Task<VideoDto?> GetVideoAsync(string videoGuid, CancellationToken cancellationToken)
+        {
+            var containerClient = _blobServiceClient.GetBlobContainerClient("videostore");
+            await foreach (BlobItem blobItem in containerClient.GetBlobsAsync(BlobTraits.Metadata, cancellationToken: cancellationToken))
+            {
+                if (blobItem.Metadata.TryGetValue("id", out var blobId) && blobId == videoGuid)
+                {
+                    var blobClient = containerClient.GetBlobClient(blobItem.Name);
+                    var properties = await blobClient.GetPropertiesAsync(cancellationToken: cancellationToken);
+
+                    var title = properties.Value.Metadata.TryGetValue("title", out var t) ? t : string.Empty;
+                    var categoryTags = properties.Value.Metadata.TryGetValue("categoryTags", out var c) ? c : string.Empty;
+                    var friendTags = properties.Value.Metadata.TryGetValue("friendTags", out var f) ? f : string.Empty;
+                    var contentType = properties.Value.ContentType ?? "video/mp4";
+                    var videoUrl = blobClient.Uri.ToString();
+
+                    return new VideoDto
+                    {
+                        Id = videoGuid,
+                        Title = title,
+                        CategoryTags = categoryTags,
+                        FriendTags = friendTags,
+                        VideoUrl = videoUrl,
+                        ContentType = contentType
+                    };
+                }
+            }
+            return null;
+        }
+
+        public async Task<string> GetVideoSasUrlAsync(string videoId, CancellationToken cancellationToken)
+        {
+            var containerClient = _blobServiceClient.GetBlobContainerClient("videostore");
+            await foreach (BlobItem blobItem in containerClient.GetBlobsAsync(BlobTraits.Metadata, cancellationToken: cancellationToken))
+            {
+                if (blobItem.Metadata.TryGetValue("id", out var blobId) && blobId == videoId)
+                {
+                    var blobClient = containerClient.GetBlobClient(blobItem.Name);
+
+                    var sasBuilder = new BlobSasBuilder
+                    {
+                        BlobContainerName = containerClient.Name,
+                        BlobName = blobClient.Name,
+                        Resource = "b",
+                        ExpiresOn = DateTimeOffset.UtcNow.AddMinutes(10)
+                    };
+                    sasBuilder.SetPermissions(BlobSasPermissions.Read);
+
+                    var sasUri = blobClient.GenerateSasUri(sasBuilder);
+                    return sasUri.ToString();
+                }
+            }
+            return string.Empty;
+        }
+
     }
+
 }
+
+
