@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../api.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -31,7 +31,9 @@ export class VideoComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private router: Router 
+
   ) {}
 
   ngOnInit(): void {
@@ -79,5 +81,9 @@ export class VideoComponent implements OnInit {
   formatTags(tags: string | null): string[] {
   if (!tags) return [];
   return tags.replace(/"/g, '').split(',').map(tag => tag.trim()).filter(tag => tag.length > 0);
+}
+
+navigateToHome(): void {
+  this.router.navigate(['/']);
 }
 }

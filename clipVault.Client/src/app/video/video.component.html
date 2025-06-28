@@ -10,9 +10,14 @@
   <div *ngIf="!isLoading && !error && video" class="video-content">
     <mat-card class="video-card">
       <mat-card-header>
-        <mat-card-title class="video-title">{{ video.title }}</mat-card-title>
-      </mat-card-header>
-      
+  <div style="display: flex; align-items: flex-start; width: 100%;">
+    <button mat-icon-button (click)="navigateToHome()" aria-label="Back to home" style="margin-right: 8px; color: #fff;">
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+    <span class="video-title" style="font-size: 1.5rem; font-weight: 500;">{{ video.title }}</span>
+  </div>
+</mat-card-header>
+
       <div class="video-player-container">
         <!-- Video player -->
         <video controls class="video-player">
