@@ -76,9 +76,9 @@ export class VideoComponent implements OnInit {
     });
   }
 
-  // Format tags for display
   formatTags(tags: string | null): string[] {
-    if (!tags) return [];
-    return tags.split(',').map(tag => tag.trim()).filter(tag => tag.length > 0);
-  }
+  if (!tags) return [];
+  // Remove all double quotes before splitting
+  return tags.replace(/"/g, '').split(',').map(tag => tag.trim()).filter(tag => tag.length > 0);
+}
 }
