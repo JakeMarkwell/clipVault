@@ -5,6 +5,7 @@ using clipVault.Repositories.Video;
 using clipVault.Services.Images;
 using FastEndpoints;
 using FluentValidation;
+using Microsoft.AspNetCore.Http.Features;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,7 +41,14 @@ builder.Services.AddValidatorsFromAssemblyContaining<GetThumbnailRequestValidato
 
 builder.WebHost.ConfigureKestrel(options =>
 {
-    options.Limits.MaxRequestBodySize = 157286400; // 150MB in bytes
+    options.Limits.MaxRequestBodySize = 314572800; // 300MB in bytes
+});
+
+builder.Services.Configure<FormOptions>(options =>
+{
+    options.MultipartBodyLengthLimit = 314572800; // 300MB in bytes
+    options.ValueLengthLimit = int.MaxValue;
+    options.MultipartHeadersLengthLimit = int.MaxValue;
 });
 
 var app = builder.Build();
