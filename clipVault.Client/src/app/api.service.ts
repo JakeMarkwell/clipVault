@@ -31,23 +31,26 @@ export class ApiService {
     );
   }
   
+  //Strongly type this better in future
   getAllThumbnails(limit: number = 16): Observable<GetThumbnailResponse[]> {
-    return this.http.get<GetThumbnailResponse[]>(`${this.api}/thumbnails?limit=${limit}`).pipe(
-      map(response => {
-        return response.map((item: GetThumbnailResponse) => {
-          const imageUrl = `data:${item.fileType};base64,${item.imageData}`;
-          return {
-            id: item.id,
-            imageData: imageUrl,
-            fileType: item.fileType,
-            title: item.title,
-            friendTags: item.friendTags,
-            categoryIds: item.categoryIds
-          };
-        });
-      })
-    );
-  }
+  return this.http.get<any>(`${this.api}/thumbnails?limit=${limit}`).pipe(
+    map(response => {
+      const items = Array.isArray(response) ? response : response.thumbnails;
+      return items.map((item: GetThumbnailResponse) => {
+        const imageUrl = `data:${item.fileType};base64,${item.imageData}`;
+        return {
+          id: item.id,
+          imageData: imageUrl,
+          fileType: item.fileType,
+          title: item.title,
+          friendTags: item.friendTags,
+          categoryIds: item.categoryIds
+        };
+      });
+    })
+  );
+}
+
 
   uploadVideo(formData: FormData): Observable<UploadVideoResponse> {
     return this.http.post<UploadVideoResponse>(`${this.api}/videos/upload`, formData);
