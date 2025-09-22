@@ -1,5 +1,6 @@
 using Azure.Storage.Blobs;
 using clipVault.Handlers.Images;
+using clipVault.Repositories.Categories;
 using clipVault.Repositories.Images;
 using clipVault.Repositories.Video;
 using FastEndpoints;
@@ -25,6 +26,9 @@ builder.Services.AddFastEndpoints();
 builder.Services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(GetThumbnailHandler).Assembly));
 
 builder.Services.AddSingleton(new BlobServiceClient(builder.Configuration.GetConnectionString("AzureBlobStorage")));
+
+//Services
+builder.Services.AddScoped<IVideoCategoryService, VideoCategoryService>();
 
 //Repositories
 builder.Services.AddTransient<IVideoRepository, VideoRepository>();

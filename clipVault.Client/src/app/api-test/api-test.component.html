@@ -1,33 +1,38 @@
-<div class="api-test-container">
-  <!-- GetThumbnail Card -->
-  <mat-card class="api-test-card">
-    <mat-card-header>
-      <mat-card-title><h1>GetThumbnail</h1></mat-card-title>
-    </mat-card-header>
+<mat-sidenav-container class="api-test-sidenav-container">
+  <mat-sidenav mode="side" opened class="api-test-sidenav">
+    <div class="sidenav-title">API Tests</div>
+    <button mat-button class="sidenav-btn" [class.active]="selectedApi === 'getThumbnail'" (click)="selectApi('getThumbnail')">
+      Get Thumbnail
+    </button>
+    <button mat-button class="sidenav-btn" [class.active]="selectedApi === 'uploadVideo'" (click)="selectApi('uploadVideo')">
+      Upload Video
+    </button>
+    <button mat-button class="sidenav-btn" [class.active]="selectedApi === 'getVideoCategories'" (click)="selectApi('getVideoCategories')">
+      Get Video Categories
+    </button>
+  </mat-sidenav>
 
-    <mat-card-content>
-      <!-- Thumbnail ID Input -->
+  <mat-sidenav-content class="api-test-content">
+    <div *ngIf="selectedApi === 'getThumbnail'" class="api-form-section">
+      <h2>Get Thumbnail</h2>
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>Thumbnail ID</mat-label>
         <input matInput [(ngModel)]="thumbnailId" placeholder="Enter thumbnail ID">
       </mat-form-field>
-
-      <!-- Loading/Error Indicators (for thumbnail retrieval) -->
+      <button mat-raised-button color="primary" (click)="getThumbnail(thumbnailId)">
+        Get Thumbnail
+      </button>
       <div *ngIf="getThumbnailLoading" class="loading-indicator">
         <mat-spinner diameter="40"></mat-spinner>
       </div>
-
       <div *ngIf="getThumbnailError" class="error-message">
         {{ getThumbnailError }}
       </div>
-
-      <!-- Thumbnail Display Area -->
-      <div *ngIf="!getThumbnailLoading && !getThumbnailError">
-        <h3 *ngIf="title">{{ title }}</h3>
+      <div *ngIf="!getThumbnailLoading && !getThumbnailError && title">
+        <h3>{{ title }}</h3>
         <div *ngIf="imageDataUrl" class="thumbnail-image-container">
           <img [src]="imageDataUrl" alt="Thumbnail" class="thumbnail-image">
         </div>
-        <!-- Tags from fetched thumbnail -->
         <div *ngIf="friendTags.length > 0" class="tags-section">
           <strong>Friend Tags:</strong>
           <span> {{friendTags}} </span>
@@ -37,39 +42,31 @@
           <span> {{categoryTags}} </span>
         </div>
       </div>
-    </mat-card-content>
+    </div>
 
-    <mat-card-actions>
-      <button mat-raised-button color="primary" (click)="getThumbnail(thumbnailId)">
-        Get Thumbnail
-      </button>
-    </mat-card-actions>
-  </mat-card>
-
-  <!-- UploadVideo Card -->
-  <mat-card class="api-test-card">
-    <mat-card-header>
-      <mat-card-title><h1>UploadVideo</h1></mat-card-title>
-    </mat-card-header>
-
-    <mat-card-content>
+    <div *ngIf="selectedApi === 'uploadVideo'" class="api-form-section">
+      <h2>Upload Video</h2>
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>Video Title</mat-label>
         <input matInput [(ngModel)]="uploadTitle" placeholder="Enter video title">
       </mat-form-field>
-
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>Friend Tags (comma-separated)</mat-label>
         <input matInput [(ngModel)]="uploadFriendTagsInput" placeholder="e.g., John, Jane">
       </mat-form-field>
-
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Category</mat-label>
+        <mat-select [(ngModel)]="uploadSelectedCategoryId" name="categorySelect">
+          <mat-option *ngFor="let cat of uploadCategories" [value]="cat.id">
+            {{ cat.categoryName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>Category Tags (comma-separated)</mat-label>
         <input matInput [(ngModel)]="uploadCategoryTagsInput" placeholder="e.g., Nature, Travel">
       </mat-form-field>
-
       <input type="file" (change)="onFileSelected($event)" accept="video/*">
-
       <button mat-raised-button color="accent" (click)="uploadVideo()" [disabled]="!selectedFile || uploadVideoLoading">
         Upload Video
       </button>
@@ -77,7 +74,39 @@
       <div *ngIf="uploadVideoError" class="error-message">
         {{ uploadVideoError }}
       </div>
-    </mat-card-content>
+    </div>
 
-  </mat-card>
-</div>
+    <div *ngIf="selectedApi === 'getVideoCategories'" class="api-form-section">
+      <h2>Get Video Categories</h2>
+      <button mat-raised-button color="primary" (click)="getVideoCategories()">
+        Fetch Categories
+      </button>
+      <div *ngIf="getCategoriesLoading" class="loading-indicator">
+        <mat-spinner diameter="40"></mat-spinner>
+      </div>
+      <div *ngIf="getCategoriesError" class="error-message">
+        {{ getCategoriesError }}
+      </div>
+      <div *ngIf="!getCategoriesLoading && videoCategories.length > 0" class="categories-list">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Rating</th>
+              <th>Image ID</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let cat of videoCategories">
+              <td>{{cat.id}}</td>
+              <td>{{cat.categoryName}}</td>
+              <td>{{cat.rating}}</td>
+              <td>{{cat.imageId || '-'}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

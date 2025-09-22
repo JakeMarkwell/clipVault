@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { development } from '../environments/development';
 import { ThumbnailResponse } from './models/Thumbnail';
+import { VideoCategory } from './api-test/api-test.component'; // Adjust path if needed
 
 @Injectable({
   providedIn: 'root',
@@ -52,7 +53,12 @@ export class ApiService {
   } 
 
   getVideo(id: string) {
-  return this.http.get<any>(`${this.api}/video/${id}`);
-}
+    return this.http.get<any>(`${this.api}/video/${id}`);
+  }
 
+  getVideoCategories(): Observable<VideoCategory[]> {
+    return this.http.get<any>(`${this.api}/video-categories`).pipe(
+      map(response => response.categories as VideoCategory[])
+    );
+  }
 }

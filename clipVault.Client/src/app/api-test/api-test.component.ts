@@ -8,6 +8,17 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormsModule } from '@angular/forms';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatTableModule } from '@angular/material/table';
+import {MatSelectModule} from '@angular/material/select';
+
+
+export interface VideoCategory {
+  id: number;
+  categoryName: string;
+  rating: number;
+  imageId?: string;
+}
 
 
 @Component({
@@ -21,7 +32,11 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatButtonModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
-    FormsModule],
+    FormsModule,
+    MatSidenavModule,
+    MatTableModule,
+    MatSelectModule,
+  ],
   templateUrl: './api-test.component.html',
   styleUrl: './api-test.component.css',
 })
@@ -42,6 +57,15 @@ export class ApiTestComponent implements OnInit {
   uploadFriendTagsInput: string = ''; 
   uploadCategoryTagsInput: string = ''; 
   videoUploadProgress: number = 0; 
+
+  selectedApi: string = 'getThumbnail';
+
+  videoCategories: VideoCategory[] = [];
+  getCategoriesLoading: boolean = false;
+  getCategoriesError: string | null = null;
+
+  uploadSelectedCategoryId: number | null = null;
+  uploadCategories: VideoCategory[] = [];
 
   constructor(private apiService: ApiService) {}
 
@@ -78,32 +102,73 @@ export class ApiTestComponent implements OnInit {
       this.uploadVideoError = 'Please select a video file.';
       return;
     }
+    if (!this.uploadSelectedCategoryId) {
+      this.uploadVideoError = 'Please select a category.';
+      return;
+    }
     this.uploadVideoLoading = true;
     this.uploadVideoError = null;
     const formData = new FormData();
     formData.append('file', this.selectedFile, this.selectedFile.name);
     formData.append('title', this.uploadTitle);
-
-    formData.append('friendTags', this.uploadFriendTagsInput); 
-    formData.append('categoryTags', this.uploadCategoryTagsInput); 
-
-
+    formData.append('friendTags', this.uploadFriendTagsInput);
+    formData.append('categoryTags', this.uploadCategoryTagsInput);
+    formData.append('categoryId', this.uploadSelectedCategoryId.toString());
 
     this.apiService.uploadVideo(formData)
       .subscribe({
         next: (response) => {
-          console.log('Upload successful', response);
           this.uploadVideoLoading = false;
           this.selectedFile = null;
           this.uploadTitle = '';
           this.uploadFriendTagsInput = '';
           this.uploadCategoryTagsInput = '';
+          this.uploadSelectedCategoryId = null;
         },
         error: (error) => {
-          console.error('Upload error', error);
           this.uploadVideoError = 'Failed to upload video.';
           this.uploadVideoLoading = false;
         }
       });
   }
+
+  selectApi(api: string): void {
+    this.selectedApi = api;
+    if (api === 'getVideoCategories') {
+      this.videoCategories = [];
+      this.getCategoriesError = null;
+      this.getCategoriesLoading = false;
+    }
+    if (api === 'uploadVideo') {
+      this.loadUploadCategories();
+    }
+  }
+
+  loadUploadCategories(): void {
+    this.apiService.getVideoCategories().subscribe({
+      next: (categories) => {
+        this.uploadCategories = categories;
+      },
+      error: () => {
+        this.uploadCategories = [];
+      }
+    });
+  }
+ 
+  getVideoCategories(): void {
+    this.getCategoriesLoading = true;
+    this.getCategoriesError = null;
+    this.apiService.getVideoCategories().subscribe({
+      next: (res) => {
+        this.videoCategories = res;
+        this.getCategoriesLoading = false;
+      },
+      error: (err) => {
+        this.getCategoriesError = 'Failed to load categories';
+        this.getCategoriesLoading = false;
+      }
+    });
+  }
+
+  
 }
