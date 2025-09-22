@@ -12,14 +12,12 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTableModule } from '@angular/material/table';
 import {MatSelectModule} from '@angular/material/select';
 
-
 export interface VideoCategory {
   id: number;
   categoryName: string;
   rating: number;
   imageId?: string;
 }
-
 
 @Component({
   selector: 'app-api-test',
@@ -44,7 +42,7 @@ export class ApiTestComponent implements OnInit {
   title: string = '';
   imageDataUrl: string = '';
   friendTags: string = '';
-  categoryTags: string = '';
+  categoryIds: number[] = [];
 
   getThumbnailLoading: boolean = true;
   getThumbnailError: string | null = null;
@@ -55,7 +53,7 @@ export class ApiTestComponent implements OnInit {
   selectedFile: File | null = null;
   uploadTitle: string = '';
   uploadFriendTagsInput: string = ''; 
-  uploadCategoryTagsInput: string = ''; 
+  uploadCategoryIdsInput: string = ''; 
   videoUploadProgress: number = 0; 
 
   selectedApi: string = 'getThumbnail';
@@ -81,7 +79,7 @@ export class ApiTestComponent implements OnInit {
         this.title = response.title;
         this.imageDataUrl = response.imageData;
         this.friendTags = response.friendTags ?? '';
-        this.categoryTags = response.categoryTags ?? '';
+        this.categoryIds = response.categoryIds ?? '';
         this.getThumbnailLoading = false;
       },
       error: (err) => {
@@ -112,7 +110,7 @@ export class ApiTestComponent implements OnInit {
     formData.append('file', this.selectedFile, this.selectedFile.name);
     formData.append('title', this.uploadTitle);
     formData.append('friendTags', this.uploadFriendTagsInput);
-    formData.append('categoryTags', this.uploadCategoryTagsInput);
+    formData.append('categoryIds', this.uploadCategoryIdsInput);
     formData.append('categoryId', this.uploadSelectedCategoryId.toString());
 
     this.apiService.uploadVideo(formData)
@@ -122,7 +120,7 @@ export class ApiTestComponent implements OnInit {
           this.selectedFile = null;
           this.uploadTitle = '';
           this.uploadFriendTagsInput = '';
-          this.uploadCategoryTagsInput = '';
+          this.uploadCategoryIdsInput = '';
           this.uploadSelectedCategoryId = null;
         },
         error: (error) => {

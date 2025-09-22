@@ -26,7 +26,7 @@ namespace clipVault.Handlers.Video
             {
                 Id = video?.Id ?? string.Empty,
                 Title = video?.Title ?? string.Empty,
-                CategoryTags = video?.CategoryTags ?? string.Empty,
+                CategoryIds = (video?.CategoryIds != null && video.CategoryIds.Count > 0) ? video.CategoryIds : new List<int>(),
                 FriendTags = video?.FriendTags ?? string.Empty,
                 VideoUrl = videoSasUrl, // Use SAS URL
                 ContentType = video?.ContentType ?? string.Empty

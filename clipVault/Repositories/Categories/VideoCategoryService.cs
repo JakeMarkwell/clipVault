@@ -28,7 +28,7 @@ namespace clipVault.Repositories.Categories
                 categories.Add(new VideoCategoryDto
                 {
                     Id = int.Parse(entity.RowKey),
-                    CategoryName = entity.GetString("categoryName") ?? "",
+                    CategoryName = (entity.GetString("categoryName") ?? "").Trim('"'),
                     Rating = entity.GetInt32("rating") ?? 0,
                     ImageId = entity.ContainsKey("imageId") ? entity.GetString("imageId") : null
                 });

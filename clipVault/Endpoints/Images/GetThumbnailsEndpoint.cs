@@ -43,7 +43,7 @@ namespace clipVault.Endpoints.Images
                     ImageData = Convert.ToBase64String(t.ImageData),
                     FileType = t.FileType,
                     FriendTags = t.FriendTags,
-                    CategoryTags = t.CategoryTags
+                    CategoryIds = t.CategoryIds
                 }).ToList()
             };
 

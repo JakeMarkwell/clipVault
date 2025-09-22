@@ -38,7 +38,7 @@ namespace clipVault.Endpoints.Images
                 fileType = response.fileType,
                 title = response.title,
                 friendTags = response.friendTags,
-                categoryTags = response.categoryTags
+                categoryIds = response.categoryIds
             };
 
             await SendAsync(result, cancellation: ct);

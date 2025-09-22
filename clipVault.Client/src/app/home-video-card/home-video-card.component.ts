@@ -13,5 +13,5 @@ export class HomeVideoCardComponent {
   @Input() imageData: string = '';
   @Input() title: string = '';
   @Input() friendTags: string = '';
-  @Input() categoryTags: string = '';
+  @Input() categoryIds: number[] = [];
 }

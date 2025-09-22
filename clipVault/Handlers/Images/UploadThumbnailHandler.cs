@@ -28,9 +28,9 @@ namespace clipVault.Handlers.Images
                 request.Metadata["friendTags"] = string.Join(",", request.FriendTags);
             }
 
-            if (request.CategoryTags?.Any() == true)
+            if (request.CategoryIds?.Any() == true)
             {
-                request.Metadata["categoryTags"] = string.Join(",", request.CategoryTags);
+                request.Metadata["categoryIds"] = string.Join(",", request.CategoryIds);
             }
 
             using (var thumbnailStream = new MemoryStream(request.Thumbnail))

@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ApiService } from '../api.service';
-import { ThumbnailResponse } from '../models/Thumbnail';
 import { Router } from '@angular/router';
 import { HomeVideoCardComponent } from '../home-video-card/home-video-card.component';
+import { GetThumbnailResponse } from '../models/get-thumbnail-response.model';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +20,7 @@ import { HomeVideoCardComponent } from '../home-video-card/home-video-card.compo
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit, AfterViewInit {
-  thumbnails: ThumbnailResponse[] = [];
+  thumbnails: GetThumbnailResponse[] = [];
   isLoading = true;
   isLoadingFadingOut = false;
   error: string | null = null;

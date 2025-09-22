@@ -58,16 +58,23 @@ namespace clipVault.Repositories.Video
                     var properties = await blobClient.GetPropertiesAsync(cancellationToken: cancellationToken);
 
                     var title = properties.Value.Metadata.TryGetValue("title", out var t) ? t : string.Empty;
-                    var categoryTags = properties.Value.Metadata.TryGetValue("categoryTags", out var c) ? c : string.Empty;
+                    var categoryIdsString = properties.Value.Metadata.TryGetValue("categoryIds", out var c) ? c : "";
                     var friendTags = properties.Value.Metadata.TryGetValue("friendTags", out var f) ? f : string.Empty;
                     var contentType = properties.Value.ContentType ?? "video/mp4";
                     var videoUrl = blobClient.Uri.ToString();
+
+                    var categoryIds = categoryIdsString
+                        .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                        .Select(tag => int.TryParse(tag, out var id) ? id : (int?)null)
+                        .Where(id => id.HasValue)
+                        .Select(id => id.Value)
+                        .ToList();
 
                     return new VideoDto
                     {
                         Id = videoGuid,
                         Title = title,
-                        CategoryTags = categoryTags,
+                        CategoryIds = categoryIds,
                         FriendTags = friendTags,
                         VideoUrl = videoUrl,
                         ContentType = contentType

@@ -14,6 +14,6 @@ namespace clipVault.Models.Images.GetThumbnails
         public string ImageData { get; set; }
         public string FileType { get; set; }
         public string FriendTags { get; set; }
-        public string CategoryTags { get; set; }
+        public List<int> CategoryIds { get; set; }
     }
 }

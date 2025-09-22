@@ -28,7 +28,7 @@ namespace clipVault.Handlers.Videos
                 { "id", Guid.NewGuid().ToString() },
                 { "title", request.Title },
                 { "friendTags", request.FriendTags.ToLower()},
-                { "categoryTags", request.CategoryTags.ToLower()}
+                { "categoryIds", request.CategoryIds.ToString()}
             };
 
             await _videoRepository.UploadVideoAsync(request.File, metadata, cancellationToken);
@@ -41,7 +41,7 @@ namespace clipVault.Handlers.Videos
                 Metadata = metadata,
                 Title = request.Title,
                 FriendTags = request.FriendTags,
-                CategoryTags = request.CategoryTags
+                CategoryIds = request.CategoryIds
             };
 
             await _mediator.Send(thumbnailRequest, cancellationToken);

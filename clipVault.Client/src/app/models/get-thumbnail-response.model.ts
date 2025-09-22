@@ -1,8 +1,8 @@
-export interface ThumbnailResponse {
+export interface GetThumbnailResponse {
   id?: string;
   imageData: string;
   fileType: string;
   title: string;
   friendTags: string;
-  categoryTags: string;
+  categoryIds: number[];
 }

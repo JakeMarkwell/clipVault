@@ -41,7 +41,7 @@ export class VideoComponent implements OnInit {
       this.videoId = params['id'];
       if (this.videoId) {
         this.loadVideo();
-        this.loadThumbnail(); // Also load the thumbnail for metadata
+        this.loadThumbnail();
       } else {
         this.error = 'No video ID provided';
         this.isLoading = false;
@@ -66,7 +66,7 @@ export class VideoComponent implements OnInit {
     });
   }
 
-  // Load thumbnail to get metadata (optional, but useful for tags, etc.)
+
   loadThumbnail(): void {
     this.apiService.getThumbnails(this.videoId).subscribe({
       next: (data) => {

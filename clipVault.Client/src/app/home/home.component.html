@@ -1,6 +1,5 @@
 <ng-container *ngIf="thumbnails && thumbnails.length > 0">
   <div class="home-video-container">
-    <!-- Add the logo header here -->
     <div class="home-logo-header" #logoHeader>
       <div class="clipvault-logo-stack">
         <div class="clipvault-logo-clip">Clip</div>
@@ -13,7 +12,7 @@
                          [imageData]="thumbnail.imageData"
                          [title]="thumbnail.title"
                          [friendTags]="thumbnail.friendTags"
-                         [categoryTags]="thumbnail.categoryTags"
+                         [categoryIds]="thumbnail.categoryIds"
                          (click)="navigateToVideo(thumbnail.id)">
       </app-home-video-card>
     </div>

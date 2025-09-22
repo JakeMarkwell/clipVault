@@ -3,8 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { development } from '../environments/development';
-import { ThumbnailResponse } from './models/Thumbnail';
-import { VideoCategory } from './api-test/api-test.component'; // Adjust path if needed
+import { VideoCategory } from './api-test/api-test.component'; 
+import { GetThumbnailResponse } from './models/get-thumbnail-response.model';
+import { UploadVideoResponse } from './models/upload-video-response.model';
 
 @Injectable({
   providedIn: 'root',
@@ -14,8 +15,8 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-  getThumbnails(thumbnailId: string): Observable<ThumbnailResponse> {
-    return this.http.get<any>(`${this.api}/thumbnail/${thumbnailId}`).pipe(
+  getThumbnails(thumbnailId: string): Observable<GetThumbnailResponse> {
+    return this.http.get<GetThumbnailResponse>(`${this.api}/thumbnail/${thumbnailId}`).pipe(
       map(response => {
         // Convert base64 to data URL for <img> src
         const imageUrl = `data:${response.fileType};base64,${response.imageData}`;
@@ -24,16 +25,16 @@ export class ApiService {
           fileType: response.fileType,
           title: response.title,
           friendTags: response.friendTags,
-          categoryTags: response.categoryTags
+          categoryIds: response.categoryIds
         };
       })
     );
   }
   
-  getAllThumbnails(limit: number = 16): Observable<ThumbnailResponse[]> {
-    return this.http.get<any>(`${this.api}/thumbnails?limit=${limit}`).pipe(
+  getAllThumbnails(limit: number = 16): Observable<GetThumbnailResponse[]> {
+    return this.http.get<GetThumbnailResponse[]>(`${this.api}/thumbnails?limit=${limit}`).pipe(
       map(response => {
-        return response.thumbnails.map((item: any) => {
+        return response.map((item: GetThumbnailResponse) => {
           const imageUrl = `data:${item.fileType};base64,${item.imageData}`;
           return {
             id: item.id,
@@ -41,15 +42,15 @@ export class ApiService {
             fileType: item.fileType,
             title: item.title,
             friendTags: item.friendTags,
-            categoryTags: item.categoryTags
+            categoryIds: item.categoryIds
           };
         });
       })
     );
   }
 
-  uploadVideo(formData: FormData): Observable<any> {
-    return this.http.post(`${this.api}/videos/upload`, formData);
+  uploadVideo(formData: FormData): Observable<UploadVideoResponse> {
+    return this.http.post<UploadVideoResponse>(`${this.api}/videos/upload`, formData);
   } 
 
   getVideo(id: string) {

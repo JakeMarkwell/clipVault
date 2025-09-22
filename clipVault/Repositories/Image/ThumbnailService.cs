@@ -30,10 +30,16 @@ namespace clipVault.Repositories.Images
                 if (properties.Value.Metadata.TryGetValue("id", out var blobId) && blobId == id)
                 {
                     var videoTitle = properties.Value.Metadata["title"];
-
                     var friendTags = properties.Value.Metadata["friendTags"];
-                    var categoryTags = properties.Value.Metadata["categoryTags"];
 
+                    // Parse categoryIds from metadata
+                    var categoryIdsString = properties.Value.Metadata.TryGetValue("categoryIds", out var ids) ? ids : "";
+                    var categoryIds = categoryIdsString
+                        .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                        .Select(s => int.TryParse(s, out var i) ? i : (int?)null)
+                        .Where(i => i.HasValue)
+                        .Select(i => i.Value)
+                        .ToList();
 
                     var downloadInfo = await blobClient.DownloadAsync(cancellationToken);
                     using (var memoryStream = new MemoryStream())
@@ -46,14 +52,14 @@ namespace clipVault.Repositories.Images
                             fileType = "image/png",
                             title = videoTitle,
                             friendTags = friendTags,
-                            categoryTags = categoryTags
+                            categoryIds = categoryIds
                         };
                     }
                 }
             }
-
             return null;
         }
+
         public async Task<GetThumbnailsResponse> GetThumbnailsAsync(int limit, CancellationToken cancellationToken)
         {
             var response = new GetThumbnailsResponse();
@@ -74,10 +80,10 @@ namespace clipVault.Repositories.Images
                         friendTags = friendTagsString;
                     }
 
-                    string categoryTags = string.Empty;
-                    if (properties.Value.Metadata.TryGetValue("categoryTags", out var categoryTagsString))
+                    string categoryIdsString = string.Empty;
+                    if (properties.Value.Metadata.TryGetValue("categoryIds", out var categoryIdsMeta))
                     {
-                        categoryTags = categoryTagsString;
+                        categoryIdsString = categoryIdsMeta;
                     }
 
                     var downloadInfo = await blobClient.DownloadAsync(cancellationToken);
@@ -86,6 +92,12 @@ namespace clipVault.Repositories.Images
                         await downloadInfo.Value.Content.CopyToAsync(memoryStream, cancellationToken);
                         var imageData = memoryStream.ToArray();
 
+                        var categoryIds = categoryIdsString.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                            .Select(s => int.TryParse(s, out var i) ? i : (int?)null)
+                            .Where(i => i.HasValue)
+                            .Select(i => i.Value)
+                            .ToList();
+
                         thumbnails.Add(new ThumbnailItem
                         {
                             Id = id,
@@ -93,7 +105,7 @@ namespace clipVault.Repositories.Images
                             ImageData = imageData,
                             FileType = properties.Value.ContentType ?? "image/png",
                             FriendTags = friendTags,
-                            CategoryTags = categoryTags
+                            CategoryIds = categoryIds
                         });
                     }
 
@@ -105,6 +117,7 @@ namespace clipVault.Repositories.Images
             response.Thumbnails = thumbnails.OrderBy(t => t.Title).ToList();
             return response;
         }
+
         public async Task<string> GetThumbnailContentTypeAsync(string id, CancellationToken cancellationToken)
         {
             var containerClient = _blobServiceClient.GetBlobContainerClient("imagestore");

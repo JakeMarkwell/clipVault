@@ -4,5 +4,5 @@ public class GetThumbnailDto
     public string fileType { get; set; }
     public string title { get; set; }
     public string friendTags { get; set; }
-    public string categoryTags { get; set; }
+    public List<int> categoryIds { get; set; }
 }

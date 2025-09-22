@@ -37,9 +37,9 @@
             </mat-chip-set>
           </div>
           
-          <div *ngIf="formatTags(thumbnail.categoryTags).length > 0" class="tag-group">
+          <div *ngIf="formatTags(thumbnail.categoryIds).length > 0" class="tag-group">
             <mat-chip-listbox>
-              <mat-chip *ngFor="let tag of formatTags(thumbnail.categoryTags)">
+              <mat-chip *ngFor="let tag of formatTags(thumbnail.categoryIds)">
                 {{ tag }}
               </mat-chip>
             </mat-chip-listbox>

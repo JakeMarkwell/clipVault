@@ -37,10 +37,6 @@
           <strong>Friend Tags:</strong>
           <span> {{friendTags}} </span>
         </div>
-        <div *ngIf="categoryTags.length > 0" class="tags-section">
-          <strong>Category Tags:</strong>
-          <span> {{categoryTags}} </span>
-        </div>
       </div>
     </div>
 
@@ -64,7 +60,7 @@
       </mat-form-field>
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>Category Tags (comma-separated)</mat-label>
-        <input matInput [(ngModel)]="uploadCategoryTagsInput" placeholder="e.g., Nature, Travel">
+        <input matInput [(ngModel)]="uploadCategoryIdsInput" placeholder="e.g., Nature, Travel">
       </mat-form-field>
       <input type="file" (change)="onFileSelected($event)" accept="video/*">
       <button mat-raised-button color="accent" (click)="uploadVideo()" [disabled]="!selectedFile || uploadVideoLoading">

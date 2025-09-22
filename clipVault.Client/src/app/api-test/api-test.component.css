@@ -1,3 +1,12 @@
+::ng-deep .mat-select-panel {
+  background: #f5f5f5 !important; 
+}
+
+::ng-deep .mat-option {
+  color: #222 !important;
+}
+
+
 :host {
   display: block;
   height: 100vh;
@@ -62,7 +71,7 @@
   border-radius: 8px;
   padding: 2rem 2.5rem;
   box-shadow: 0 2px 12px rgba(0,0,0,0.12);
-  margin: 2rem;
+  margin-bottom: 2rem;
 }
 
 h2 {
