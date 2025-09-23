@@ -1,0 +1,51 @@
+<form class="upload-form" (ngSubmit)="uploadVideo()" autocomplete="off">
+  <h2 class="form-title">Upload Video</h2>
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Video Title</mat-label>
+    <input matInput [(ngModel)]="uploadTitle" name="title" placeholder="Enter video title" required>
+  </mat-form-field>
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Friend Tags (comma-separated)</mat-label>
+    <input matInput [(ngModel)]="uploadFriendTagsInput" name="friendTags" placeholder="e.g., John, Jane">
+  </mat-form-field>
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Category</mat-label>
+    <mat-select [(ngModel)]="uploadSelectedCategoryId" name="categorySelect" required>
+      @for (cat of uploadCategories; track cat.id) {
+        <mat-option [value]="cat.id">
+          {{ cat.categoryName }}
+        </mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Category Tags (comma-separated)</mat-label>
+    <input matInput [(ngModel)]="uploadCategoryIdsInput" name="categoryTags" placeholder="e.g., Nature, Travel">
+  </mat-form-field>
+  <div class="action-row">
+  <div class="choose-file">
+    <div class="choose-file-button">
+    <input #fileInput type="file" (change)="onFileSelected($event)" accept="video/*" hidden>
+    <button mat-flat-button color="primary" type="button" (click)="fileInput.click()" [disabled]="uploadVideoLoading">
+      <mat-icon>attach_file</mat-icon>
+      <span>Choose File</span>
+    </button>
+    </div>
+    <span class="file-name">{{ selectedFile?.name || 'No file chosen' }}</span>
+  </div>
+  <button mat-icon-button class="upload-icon-btn"
+          type="submit"
+          [disabled]="!selectedFile || uploadVideoLoading"
+          aria-label="Upload Video">
+    <mat-icon fontSet="material-symbols-sharp">upload</mat-icon>
+  </button>
+  </div>
+  @if (uploadVideoLoading) {
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  }
+  @if (uploadVideoError) {
+    <div class="error-message">
+      {{ uploadVideoError }}
+    </div>
+  }
+</form>

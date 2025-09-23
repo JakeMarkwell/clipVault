@@ -1,0 +1,51 @@
+<mat-sidenav-container class="api-test-sidenav-container">
+  <mat-sidenav mode="side" opened class="api-test-sidenav">
+    <div class="sidenav-title">Admin Panel</div>
+    <mat-tree [dataSource]="apiTreeDataSource" [treeControl]="apiTreeControl" class="api-tree-list">
+      <mat-tree-node *matTreeNodeDef="let node; when: hasChild" class="api-tree-parent">
+        <li>
+          <div class="mat-tree-node">
+            <div class="parent-node-name">
+              {{node.name}}
+            </div>
+            <button mat-icon-button matTreeNodeToggle>
+              <mat-icon>
+                {{apiTreeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+              </mat-icon>
+            </button>
+          </div>
+        </li>
+      </mat-tree-node>
+      <mat-tree-node *matTreeNodeDef="let node" class="api-tree-leaf">
+        <li>
+          <button mat-button class="sidenav-btn"
+                  [class.active]="selectedApi === node.api"
+                  (click)="selectApi(node.api)">
+            <div class="child-node-name">
+              {{node.name}}
+            </div>
+          </button>
+        </li>
+      </mat-tree-node>
+    </mat-tree>
+  </mat-sidenav>
+  <mat-sidenav-content class="api-test-content">
+    <ng-container [ngSwitch]="selectedApi">
+      <ng-container *ngSwitchCase="'getThumbnail'">
+        <mat-card class="admin-tool-card">
+          <app-get-thumbnail-tool></app-get-thumbnail-tool>
+        </mat-card>
+      </ng-container>
+      <ng-container *ngSwitchCase="'uploadVideo'">
+        <mat-card class="admin-tool-card">
+          <app-upload-video-tool></app-upload-video-tool>
+        </mat-card>
+      </ng-container>
+      <ng-container *ngSwitchCase="'getVideoCategories'">
+        <mat-card class="admin-tool-card">
+          <app-get-categories-tool></app-get-categories-tool>
+        </mat-card>
+      </ng-container>
+    </ng-container>
+  </mat-sidenav-content>
+</mat-sidenav-container>

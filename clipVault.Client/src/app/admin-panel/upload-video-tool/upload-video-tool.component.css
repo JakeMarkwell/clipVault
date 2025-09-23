@@ -1,0 +1,105 @@
+.upload-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-title {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #ffe082;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.01em;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.file-name {
+  color: #bdbdbd;
+  font-size: 0.95em;
+}
+
+.upload-btn {
+  margin-top: 1rem;
+  background-color: none;
+}
+
+.upload-icon-btn {
+  background: none !important;      /* Remove background */
+  border-radius: 50% !important;    /* Make it circular */
+  box-shadow: none !important;      /* Remove any shadow */
+  width: 48px;
+  height: 48px;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffe082;                   /* Accent color, adjust as needed */
+  border: none;
+  outline: none;
+  transition: background 0.2s;
+}
+
+.upload-icon-btn:hover,
+.upload-icon-btn:focus {
+  background: rgba(255, 224, 130, 0.08) !important; /* Subtle accent on hover */
+}
+
+.upload-icon-btn[disabled] {
+  opacity: 0.5;
+  background: none !important;
+}
+
+.upload-icon-btn mat-icon {
+  font-size: 2rem;
+}
+
+
+.choose-file-button
+{
+  button
+  {
+    display: flex;
+    align-items: center;
+  }
+  
+}
+
+
+.error-message {
+  color: #ff5252;
+  margin-top: 0.5rem;
+  font-size: 1em;
+}
+
+.action-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5rem;
+  gap: 1.5rem;
+}
+
+.choose-file {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.file-name {
+  color: #bdbdbd;
+  font-size: 0.95em;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.upload-icon-btn[disabled] {
+  opacity: 0.5;
+}
+
+

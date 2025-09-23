@@ -3,10 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http'; 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ApiTestComponent } from './api-test/api-test.component';
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { ApiService } from './api.service';
-import { HomeComponent } from './home/home.component';
-import { VideoComponent } from './video/video.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +14,7 @@ import { VideoComponent } from './video/video.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ApiTestComponent
+    AdminPanelComponent
   ],
   providers: [ApiService],
   bootstrap: [AppComponent]

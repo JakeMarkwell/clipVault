@@ -70,8 +70,11 @@ a:hover {
   font-family: 'Roboto', sans-serif;
 }
 
+.mat-drawer-inner-container {
+  overflow-x: hidden !important;
+}
 
-.api-test-card .mat-card-title h1 {
+.admin-panel-card .mat-card-title h1 {
   font-size: 24px; 
   margin: 0;
 }

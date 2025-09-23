@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { development } from '../environments/development';
-import { VideoCategory } from './api-test/api-test.component'; 
+import { VideoCategory } from './models/video.model';
 import { GetThumbnailResponse } from './models/get-thumbnail-response.model';
 import { UploadVideoResponse } from './models/upload-video-response.model';
 

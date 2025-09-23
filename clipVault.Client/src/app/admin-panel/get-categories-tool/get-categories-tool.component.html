@@ -1,0 +1,37 @@
+<div class="api-form-section">
+  <h2>Get Video Categories</h2>
+  @if (getCategoriesLoading) {
+    <div class="loading-indicator">
+      <mat-spinner diameter="40"></mat-spinner>
+    </div>
+  }
+  @if (getCategoriesError) {
+    <div class="error-message">
+      {{ getCategoriesError }}
+    </div>
+  }
+  @if (!getCategoriesLoading && videoCategories.length > 0) {
+    <div class="categories-list">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Rating</th>
+            <th>Image ID</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (cat of videoCategories; track cat.id) {
+            <tr>
+              <td>{{cat.id}}</td>
+              <td>{{cat.categoryName}}</td>
+              <td>{{cat.rating}}</td>
+              <td>{{cat.imageId || '-'}}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>
