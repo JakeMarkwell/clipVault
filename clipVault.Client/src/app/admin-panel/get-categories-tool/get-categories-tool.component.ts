@@ -6,7 +6,7 @@ import { ApiService } from '../../api.service';
 @Component({
   selector: 'app-get-categories-tool',
   templateUrl: './get-categories-tool.component.html',
-  styleUrls: ['./get-categories-tool.component.css'],
+  styleUrls: ['./get-categories-tool.component.scss'],
   imports: [MatProgressSpinnerModule],
   standalone: true
 })

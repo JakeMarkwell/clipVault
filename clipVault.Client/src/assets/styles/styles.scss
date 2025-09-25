@@ -1,6 +1,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@400;500&display=swap');
 
+
 @font-face {
   font-family: 'Blastimo';
   src: url('/assets/fonts/Blastimo.woff2') format('woff2'),
@@ -20,32 +21,26 @@ html, body {
   background-color: #242B33;
   line-height: 1.6;
   box-sizing: border-box; 
-   overflow-y: scroll;
+  overflow-y: auto;
 }
 
-body::-webkit-scrollbar {
-   display: none;
-}
-
-*, *::before, *::after {
-  box-sizing: inherit;
-}
 
 /* Basic typography for headings */
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 500; 
-  margin-top: 1em;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600; 
+  margin-top: 2rem;
   margin-bottom: 0.5em;
-  color: #EBE5C2; 
+  color: #F6AE28; 
+;
 }
 
 
 code, pre {
-  font-family: 'Roboto Mono', monospace;
-  background-color: #EBE5C2; 
+  font-family: "Roboto Mono", monospace;
+  background-color: #F6AE28; 
   padding: 2px 4px;
-  border-radius: 4px;
+  border-radius: 8px;
   font-size: 0.9em;
 }
 
@@ -66,10 +61,6 @@ a:hover {
   text-decoration: underline;
 }
 
-.mat-typography {
-  font-family: 'Roboto', sans-serif;
-}
-
 .mat-drawer-inner-container {
   overflow-x: hidden !important;
 }
@@ -84,10 +75,5 @@ a:hover {
   padding: 16px;
 }
 
-.mat-form-field {
-  font-family: 'Roboto', sans-serif;
-}
 
-.mat-input-element {
-  font-family: 'Roboto', sans-serif;
-}
+

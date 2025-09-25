@@ -4,18 +4,21 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ApiService } from '../../api.service';
+import { MatTableModule } from '@angular/material/table';
+import { NgStyle } from "../../../../node_modules/@angular/common/common_module.d-NEF7UaHr";
 
 @Component({
   selector: 'app-get-thumbnail-tool',
   templateUrl: './get-thumbnail-tool.component.html',
-  styleUrls: ['./get-thumbnail-tool.component.css'],
+  styleUrls: ['./get-thumbnail-tool.component.scss'],
   standalone: true,
   imports: [
     MatProgressSpinnerModule,
     MatFormFieldModule,
     MatInputModule,
-    FormsModule
-  ],
+    FormsModule,
+    MatTableModule,
+],
 })
 export class GetThumbnailToolComponent implements OnInit {
   title: string = '';
@@ -49,4 +52,15 @@ export class GetThumbnailToolComponent implements OnInit {
       }
     });
   }
+
+
+  get thumbnailDetailsRows() {
+    return [
+      { field: 'Title', value: this.title },
+      { field: 'Categories', value: this.categoryIds.join(', ') },
+      { field: 'Friend Tags', value: this.friendTags },
+      { field: 'ID', value: this.thumbnailId },
+    ];
+  }
+
 }

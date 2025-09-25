@@ -1,0 +1,189 @@
+// /* These tokens are generated using https://themes.angular-material.dev/ */
+// /* Preview: https://themes.angular-material.dev/?bold-font-weight=700&brand-font-family=Roboto%20Slab&medium-font-weight=500&plain-font-family=Roboto%20Slab&regular-font-weight=400&seed-error=%23ffb4ab&seed-neutral=%2380766a&seed-neutral-variant=%23837562&seed-primary=%23F6AE28&seed-secondary=%23e8c085&seed-tertiary=%23bbd151 */
+// /* Seed Colors: primary: #F6AE28, secondary: #e8c085, tertiary: #bbd151, error: #ffb4ab, neutral: #80766a, neutral-variant: #837562 */
+// /* Seed Typography: plain-font-family: Roboto Slab, brand-font-family: Roboto Slab, bold-font-weight: 700, medium-font-weight: 500, regular-font-weight: 400 */
+
+// /* Make sure to import fonts in `<head>` of html */
+// /*
+// <style>
+//   @import url('https://fonts.googleapis.com/css2?family=Roboto Slab&family=Roboto Slab&display=swap');
+// </style>
+
+// OR
+
+// <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto Slab&family=Roboto Slab&display=swap">
+// */
+
+// @use "@angular/material" as mat;
+
+
+// /* Light Theme */
+// :root, :host {
+//   @include mat.theme-overrides((
+//     primary-container: #ffddaf,
+//     on-primary-container: #281800,
+//     inverse-primary: #ffba42,
+//     primary-fixed: #ffddaf,
+//     primary-fixed-dim: #ffba42,
+//     on-primary-fixed: #281800,
+//     on-primary-fixed-variant: #614000,
+//     secondary: #775928,
+//     on-secondary: #ffffff,
+//     secondary-container: #ffddaf,
+//     on-secondary-container: #281800,
+//     secondary-fixed: #ffddaf,
+//     secondary-fixed-dim: #e8c085,
+//     on-secondary-fixed: #281800,
+//     on-secondary-fixed-variant: #5d4212,
+//     tertiary: #566500,
+//     on-tertiary: #ffffff,
+//     tertiary-container: #d7ee6a,
+//     on-tertiary-container: #181e00,
+//     tertiary-fixed: #d7ee6a,
+//     tertiary-fixed-dim: #bbd151,
+//     on-tertiary-fixed: #181e00,
+//     on-tertiary-fixed-variant: #404c00,
+//     background: #242B33, // App background
+//     on-background: #f5f5f5, // Text on background
+//     surface: #23262b, // Card/component background
+//     surface-container: #23262b,
+//     surface-container-low: #23262b,
+//     surface-container-high: #23262b,
+//     surface-container-highest: #23262b,
+//     surface-bright: #23262b,
+//     surface-dim: #23262b,
+//     on-surface: #f5f5f5, // Text on surface
+//     surface-variant: transparent, // For tables
+//     on-surface-variant: #f5f5f5, // Table text color
+//     outline: #f5f5f5, // Table border color
+//     primary: #F6AE28, // Button fill
+//     on-primary: #23262b, // Button text color for contrast
+//   ));
+//   --mat-card-box-shadow: 0 2px 12px rgba(0,0,0,0.10); // Card shadow
+//   --mat-table-background: transparent;
+//   --mat-table-color: #f5f5f5;
+//   --mat-table-border-color: #f5f5f5;
+//   --mat-button-fill-color: #F6AE28;
+//   --mat-button-text-color: #23262b;
+//   --mat-text-spacing: 0.05em; // Reduced letter spacing
+//   --mat-text-weight: 400;
+// }
+
+// /* Dark Theme */
+// .dark {
+//   @include mat.theme-overrides((
+//     primary-container: #614000,
+//     on-primary-container: #ffddaf,
+//     inverse-primary: #805600,
+//     primary-fixed: #ffddaf,
+//     primary-fixed-dim: #ffba42,
+//     on-primary-fixed: #281800,
+//     on-primary-fixed-variant: #614000,
+//     secondary: #e8c085,
+//     on-secondary: #432c00,
+//     secondary-container: #5d4212,
+//     on-secondary-container: #ffddaf,
+//     secondary-fixed: #ffddaf,
+//     secondary-fixed-dim: #e8c085,
+//     on-secondary-fixed: #281800,
+//     on-secondary-fixed-variant: #5d4212,
+//     tertiary: #bbd151,
+//     on-tertiary: #2c3400,
+//     tertiary-container: #404c00,
+//     on-tertiary-container: #d7ee6a,
+//     tertiary-fixed: #d7ee6a,
+//     tertiary-fixed-dim: #bbd151,
+//     on-tertiary-fixed: #181e00,
+//     on-tertiary-fixed-variant: #404c00,
+//     background: #242B33,
+//     on-background: #f5f5f5,
+//     surface: #23262b,
+//     surface-container: #23262b,
+//     surface-container-low: #23262b,
+//     surface-container-high: #23262b,
+//     surface-container-highest: #23262b,
+//     surface-bright: #23262b,
+//     surface-dim: #23262b,
+//     on-surface: #f5f5f5,
+//     surface-variant: transparent,
+//     on-surface-variant: #f5f5f5,
+//     outline: #f5f5f5,
+//     primary: #F6AE28,
+//     on-primary: #23262b,
+//   ));
+//   --mat-card-box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+//   --mat-table-background: transparent;
+//   --mat-table-color: #f5f5f5;
+//   --mat-table-border-color: #f5f5f5;
+//   --mat-button-fill-color: #F6AE28;
+//   --mat-button-text-color: #23262b;
+//   --mat-text-spacing: 0.05em;
+//   --mat-text-weight: 400;
+// }
+
+// /* Typography */
+// :root, :host {
+//   /* core typography tokens are not generating css variables, hence below */
+//   --mat-sys-brand-font-family: Roboto Slab;
+//   --mat-sys-plain-font-family: Roboto Slab;
+//   --mat-sys-bold-font-weight: 700;
+//   --mat-sys-medium-font-weight: 500;
+//   --mat-sys-regular-font-weight: 400;
+
+//   @include mat.theme-overrides((
+//     brand-family: Roboto Slab,
+//     plain-family: Roboto Slab,
+//     bold-weight: 700,
+//     medium-weight: 500,
+//     regular-weight: 400,
+//     headline-large-font: var(--mat-sys-brand-font-family),
+//     headline-medium-font: var(--mat-sys-brand-font-family),
+//     headline-small-font: var(--mat-sys-brand-font-family),
+//     display-large-font: var(--mat-sys-brand-font-family),
+//     display-medium-font: var(--mat-sys-brand-font-family),
+//     display-small-font: var(--mat-sys-brand-font-family),
+//     title-large-font: var(--mat-sys-brand-font-family),
+//     body-large: var(--mat-sys-body-large-weight) var(--mat-sys-body-large-size) / var(--mat-sys-body-large-line-height) var(--mat-sys-body-large-font),
+//     body-medium: var(--mat-sys-body-medium-weight) var(--mat-sys-body-medium-size) / var(--mat-sys-body-medium-line-height) var(--mat-sys-body-medium-font),
+//     body-small: var(--mat-sys-body-small-weight) var(--mat-sys-body-small-size) / var(--mat-sys-body-small-line-height) var(--mat-sys-body-small-font),
+//     label-large: var(--mat-sys-label-large-weight) var(--mat-sys-label-large-size) / var(--mat-sys-label-large-line-height) var(--mat-sys-label-large-font),
+//     label-medium: var(--mat-sys-label-medium-weight) var(--mat-sys-label-medium-size) / var(--mat-sys-label-medium-line-height) var(--mat-sys-label-medium-font),
+//     label-small: var(--mat-sys-label-small-weight) var(--mat-sys-label-small-size) / var(--mat-sys-label-small-line-height) var(--mat-sys-label-small-font),
+//     title-large: var(--mat-sys-title-large-weight) var(--mat-sys-title-large-size) / var(--mat-sys-title-large-line-height) var(--mat-sys-title-large-font),
+//     title-medium: var(--mat-sys-title-medium-weight) var(--mat-sys-title-medium-size) / var(--mat-sys-title-medium-line-height) var(--mat-sys-title-medium-font),
+//     title-small: var(--mat-sys-title-small-weight) var(--mat-sys-title-small-size) / var(--mat-sys-title-small-line-height) var(--mat-sys-title-small-font),
+//     headline-large: var(--mat-sys-headline-large-weight) var(--mat-sys-headline-large-size) / var(--mat-sys-headline-large-line-height) var(--mat-sys-headline-large-font),
+//     headline-medium: var(--mat-sys-headline-medium-weight) var(--mat-sys-headline-medium-size) / var(--mat-sys-headline-medium-line-height) var(--mat-sys-headline-medium-font),
+//     headline-small: var(--mat-sys-headline-small-weight) var(--mat-sys-headline-small-size) / var(--mat-sys-headline-small-line-height) var(--mat-sys-headline-small-font),
+//     display-large: var(--mat-sys-display-large-weight) var(--mat-sys-display-large-size) / var(--mat-sys-display-large-line-height) var(--mat-sys-display-large-font),
+//     display-medium: var(--mat-sys-display-medium-weight) var(--mat-sys-display-medium-size) / var(--mat-sys-display-medium-line-height) var(--mat-sys-display-medium-font),
+//     display-small: var(--mat-sys-display-small-weight) var(--mat-sys-display-small-size) / var(--mat-sys-display-small-line-height) var(--mat-sys-display-small-font),
+//     body-large-font: var(--mat-sys-plain-font-family),
+//     body-medium-font: var(--mat-sys-plain-font-family),
+//     body-small-font: var(--mat-sys-plain-font-family),
+//     label-large-font: var(--mat-sys-plain-font-family),
+//     label-medium-font: var(--mat-sys-plain-font-family),
+//     label-small-font: var(--mat-sys-plain-font-family),
+//     title-medium-font: var(--mat-sys-plain-font-family),
+//     title-small-font: var(--mat-sys-plain-font-family),
+//     label-large-weight-prominent: var(--mat-sys-bold-font-weight),
+//     label-medium-weight-prominent: var(--mat-sys-bold-font-weight),
+//     label-large-weight: var(--mat-sys-medium-font-weight),
+//     label-medium-weight: var(--mat-sys-medium-font-weight),
+//     label-small-weight: var(--mat-sys-medium-font-weight),
+//     title-medium-weight: var(--mat-sys-medium-font-weight),
+//     title-small-weight: var(--mat-sys-medium-font-weight),
+//     body-large-weight: var(--mat-sys-regular-font-weight),
+//     body-medium-weight: var(--mat-sys-regular-font-weight),
+//     body-small-weight: var(--mat-sys-regular-font-weight),
+//     display-large-weight: var(--mat-sys-regular-font-weight),
+//     display-medium-weight: var(--mat-sys-regular-font-weight),
+//     display-small-weight: var(--mat-sys-regular-font-weight),
+//     headline-large-weight: var(--mat-sys-regular-font-weight),
+//     headline-medium-weight: var(--mat-sys-regular-font-weight),
+//     headline-small-weight: var(--mat-sys-regular-font-weight),
+//     title-large-weight: var(--mat-sys-regular-font-weight),
+//   ));
+//   letter-spacing: var(--mat-text-spacing, 0.05em);
+//   font-weight: var(--mat-text-weight, 400);
+// }

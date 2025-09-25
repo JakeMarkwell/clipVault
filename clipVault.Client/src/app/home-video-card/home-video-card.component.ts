@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './home-video-card.component.html',
-  styleUrls: ['./home-video-card.component.css']
+  styleUrls: ['./home-video-card.component.scss']
 })
 export class HomeVideoCardComponent {
   @Input() imageData: string = '';

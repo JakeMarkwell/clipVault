@@ -11,7 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'app-upload-video-tool',
   templateUrl: './upload-video-tool.component.html',
-  styleUrls: ['./upload-video-tool.component.css'],
+  styleUrls: ['./upload-video-tool.component.scss'],
   standalone: true,
   imports: [MatSelectModule, MatInputModule, MatProgressBarModule, MatFormFieldModule, FormsModule, MatIconModule],
 })

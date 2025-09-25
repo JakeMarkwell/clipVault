@@ -1,15 +1,15 @@
 <form class="upload-form" (ngSubmit)="uploadVideo()" autocomplete="off">
   <h2 class="form-title">Upload Video</h2>
-  <mat-form-field appearance="fill" class="full-width">
+  <mat-form-field appearance="outline" class="full-width">
     <mat-label>Video Title</mat-label>
     <input matInput [(ngModel)]="uploadTitle" name="title" placeholder="Enter video title" required>
   </mat-form-field>
-  <mat-form-field appearance="fill" class="full-width">
+  <mat-form-field appearance="outline" class="full-width">
     <mat-label>Friend Tags (comma-separated)</mat-label>
     <input matInput [(ngModel)]="uploadFriendTagsInput" name="friendTags" placeholder="e.g., John, Jane">
   </mat-form-field>
-  <mat-form-field appearance="fill" class="full-width">
-    <mat-label>Category</mat-label>
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Game Category</mat-label>
     <mat-select [(ngModel)]="uploadSelectedCategoryId" name="categorySelect" required>
       @for (cat of uploadCategories; track cat.id) {
         <mat-option [value]="cat.id">
@@ -17,10 +17,6 @@
         </mat-option>
       }
     </mat-select>
-  </mat-form-field>
-  <mat-form-field appearance="fill" class="full-width">
-    <mat-label>Category Tags (comma-separated)</mat-label>
-    <input matInput [(ngModel)]="uploadCategoryIdsInput" name="categoryTags" placeholder="e.g., Nature, Travel">
   </mat-form-field>
   <div class="action-row">
   <div class="choose-file">

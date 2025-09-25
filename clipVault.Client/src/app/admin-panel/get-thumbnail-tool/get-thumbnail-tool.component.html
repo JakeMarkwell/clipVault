@@ -1,12 +1,51 @@
 <div class="api-form-section">
   <h2>Get Thumbnail</h2>
-  <mat-form-field appearance="fill" class="full-width">
-    <mat-label>Thumbnail ID</mat-label>
-    <input matInput [(ngModel)]="thumbnailId" placeholder="Enter thumbnail ID">
-  </mat-form-field>
-  <button mat-raised-button color="primary" (click)="getThumbnail(thumbnailId)">
-    Get Thumbnail
-  </button>
+  <div class="form-container">
+    <div class="thumbnail-input">
+      <mat-form-field appearance="outline" class="full-width" style="width: 100%;">
+        <mat-label>Thumbnail ID</mat-label>
+        <input matInput [(ngModel)]="thumbnailId" placeholder="Enter thumbnail ID">
+      </mat-form-field>
+    </div>
+    <button
+      mat-flat-button
+      class="get-thumbnail-btn"
+      (click)="getThumbnail(thumbnailId)">
+      SEARCH
+    </button>
+  </div>
+
+  <div class="thumbnail-flex-container">
+    @if(!getThumbnailLoading && !getThumbnailError && title){
+      <div class="thumbnail-details-card">
+      
+      <table mat-table [dataSource]="thumbnailDetailsRows" class="mat-elevation-z0 thumbnail-mat-table">
+
+        <!-- Field Name Column -->
+        <ng-container matColumnDef="field">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let row">{{row.field}}</td>
+        </ng-container>
+
+        <!-- Value Column -->
+        <ng-container matColumnDef="value">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let row">{{row.value}}</td>
+        </ng-container>
+
+        <tr mat-row *matRowDef="let row; columns: ['field', 'value'];"></tr>
+      </table>
+
+      </div>
+    }
+
+        @if(!getThumbnailLoading && !getThumbnailError && imageDataUrl){
+        <div class="thumbnail-image-card">
+            <img [src]="imageDataUrl" alt="Thumbnail" class="thumbnail-image-preview" />
+        </div>
+        }
+      </div>
+
   @if (getThumbnailLoading) {
     <div class="loading-indicator">
       <mat-spinner diameter="40"></mat-spinner>
@@ -16,19 +55,5 @@
     <div class="error-message">
       {{ getThumbnailError }}
     </div>
-  }
-  @if (!getThumbnailLoading && !getThumbnailError && title) {
-    <h3>{{ title }}</h3>
-    @if (imageDataUrl) {
-      <div class="thumbnail-image-container">
-        <img [src]="imageDataUrl" alt="Thumbnail" class="thumbnail-image">
-      </div>
-    }
-    @if (friendTags.length > 0) {
-      <div class="tags-section">
-        <strong>Friend Tags:</strong>
-        <span> {{friendTags}} </span>
-      </div>
-    }
   }
 </div>

@@ -74,7 +74,7 @@ const TREE_DATA: ApiTreeNode[] = [
     GetCategoriesToolComponent
   ],
   templateUrl: './admin-panel.component.html',
-  styleUrl: './admin-panel.component.css',
+  styleUrl: './admin-panel.component.scss',
 })
 export class AdminPanelComponent {
   selectedApi: string = 'getThumbnail';
