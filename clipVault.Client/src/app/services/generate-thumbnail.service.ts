@@ -12,8 +12,9 @@ export class GenerateThumbnailService {
     friendTags: string,
     categoryIds: number[],
     apiService: ApiService,
-    azureBlobService: AzureBlobService
-  ): Promise<void> {
+    azureBlobService: AzureBlobService,
+    id: string 
+    ): Promise<void> {
     const thumbnailBlob = await new Promise<Blob>((resolve, reject) => {
       const video = document.createElement('video');
       video.src = URL.createObjectURL(videoFile);
@@ -47,7 +48,7 @@ export class GenerateThumbnailService {
         title,
         friendTags,
         categoryIds: categoryIds.join(','),
-        id: crypto.randomUUID()
+        id
       }
     );
   }

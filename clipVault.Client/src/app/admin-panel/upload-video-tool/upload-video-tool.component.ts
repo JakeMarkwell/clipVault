@@ -56,14 +56,17 @@ export class UploadVideoToolComponent implements OnInit {
     this.uploadVideoError = null;
 
     try {
+      const videoGuid = crypto.randomUUID();
+
       const sasResult: any = await this.apiService
         .getSasToken(this.selectedFile.name)
         .toPromise();
       const sasUrl = sasResult.sasUrl;
 
       await this.azureBlobService.uploadFileToBlob(sasUrl, this.selectedFile, {
+        id: videoGuid,
         title: this.uploadTitle,
-        friendTags: this.uploadFriendTagsInput,
+        friendTags: `"${this.uploadFriendTagsInput}"`,
         categoryIds: String(this.uploadSelectedCategoryId)
       });
 
@@ -73,7 +76,8 @@ export class UploadVideoToolComponent implements OnInit {
         this.uploadFriendTagsInput,
         [this.uploadSelectedCategoryId],
         this.apiService,
-        this.azureBlobService
+        this.azureBlobService,
+        videoGuid 
       );
 
       this.uploadVideoLoading = false;
