@@ -69,4 +69,12 @@ export class ApiService {
   addVideoCategory(categoryData: { categoryName: string; rating: number; imageId?: string | null }): Observable<any> {
     return this.http.post(`${this.api}/video-categories/add`, categoryData);
   }
+
+  getSasToken(fileName: string): Observable<{ sasUrl: string }> {
+    return this.http.get<{ sasUrl: string }>(`${this.api}/api/video/get-upload-sas?fileName=${encodeURIComponent(fileName)}`);
+  }
+
+  getImageSasToken(fileName: string): Observable<{ sasUrl: string }> {
+  return this.http.get<{ sasUrl: string }>(`${this.api}/api/image/get-upload-sas?fileName=${encodeURIComponent(fileName)}`);
+}
 }

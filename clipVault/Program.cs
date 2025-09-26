@@ -1,5 +1,6 @@
 using Azure.Storage.Blobs;
 using clipVault.Handlers.Images;
+using clipVault.Handlers.Video;
 using clipVault.Repositories.Categories;
 using clipVault.Repositories.Images;
 using clipVault.Repositories.Video;
@@ -31,11 +32,15 @@ builder.Services.AddSingleton(new BlobServiceClient(builder.Configuration.GetCon
 //Services
 builder.Services.AddScoped<IVideoCategoryService, VideoCategoryService>();
 
+
 //Repositories
 builder.Services.AddTransient<IVideoRepository, VideoRepository>();
 builder.Services.AddTransient<IThumbnailService, ThumbnailService>();
+builder.Services.AddTransient<GetUploadThumbnailSasHandler>();
+builder.Services.AddTransient<GetUploadSasHandler>();
 
 //Fluent Validators
+builder.Services.AddValidatorsFromAssemblyContaining<GetUploadSasRequestValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<UploadVideoRequestValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<GetThumbnailRequestValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<AddVideoCategoryRequestValidator>();
