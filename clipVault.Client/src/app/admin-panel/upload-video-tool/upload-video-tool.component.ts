@@ -7,13 +7,22 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../api.service';
 import { MatIconModule } from '@angular/material/icon';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-upload-video-tool',
   templateUrl: './upload-video-tool.component.html',
   styleUrls: ['./upload-video-tool.component.scss'],
   standalone: true,
-  imports: [MatSelectModule, MatInputModule, MatProgressBarModule, MatFormFieldModule, FormsModule, MatIconModule],
+  imports: [
+    MatAutocompleteModule,
+    MatSelectModule,
+    MatInputModule,
+    MatProgressBarModule,
+    MatFormFieldModule,
+    FormsModule,
+    MatIconModule
+  ],
 })
 export class UploadVideoToolComponent implements OnInit {
   uploadTitle: string = '';
@@ -24,6 +33,8 @@ export class UploadVideoToolComponent implements OnInit {
   selectedFile: File | null = null;
   uploadVideoLoading: boolean = false;
   uploadVideoError: string | null = null;
+  categoryInput: string = '';
+  filteredCategories: VideoCategory[] = [];
 
   constructor(private apiService: ApiService) {}
 
@@ -35,6 +46,32 @@ export class UploadVideoToolComponent implements OnInit {
     this.selectedFile = event.target.files[0] as File;
     this.uploadVideoError = null;
     this.uploadVideoLoading = false;
+  }
+
+  loadUploadCategories(): void {
+    this.apiService.getVideoCategories().subscribe({
+      next: (categories) => {
+        this.uploadCategories = categories;
+        this.filteredCategories = categories;
+      },
+      error: () => {
+        this.uploadCategories = [];
+        this.filteredCategories = [];
+      }
+    });
+  }
+
+  filterCategories(): void {
+    const filterValue = this.categoryInput?.toLowerCase() || '';
+    this.filteredCategories = this.uploadCategories.filter(cat =>
+      cat.categoryName.toLowerCase().includes(filterValue)
+    );
+  }
+
+  onCategorySelected(selectedName: string): void {
+    const selected = this.uploadCategories.find(cat => cat.categoryName === selectedName);
+    this.uploadSelectedCategoryId = selected ? selected.id : null;
+    this.categoryInput = selected ? selected.categoryName : '';
   }
 
   uploadVideo(): void {
@@ -64,22 +101,12 @@ export class UploadVideoToolComponent implements OnInit {
           this.uploadFriendTagsInput = '';
           this.uploadCategoryIdsInput = '';
           this.uploadSelectedCategoryId = null;
+          this.categoryInput = '';
         },
         error: () => {
           this.uploadVideoError = 'Failed to upload video.';
           this.uploadVideoLoading = false;
         }
       });
-  }
-
-  loadUploadCategories(): void {
-    this.apiService.getVideoCategories().subscribe({
-      next: (categories) => {
-        this.uploadCategories = categories;
-      },
-      error: () => {
-        this.uploadCategories = [];
-      }
-    });
   }
 }
