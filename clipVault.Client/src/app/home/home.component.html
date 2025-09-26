@@ -1,29 +1,64 @@
-<ng-container *ngIf="thumbnails && thumbnails.length > 0">
-  <div class="home-video-container">
-    <div class="home-logo-header" #logoHeader>
+<mat-sidenav-container class="home-sidenav-container">
+  <mat-sidenav class="home-sidenav" mode="side" opened>
+    <div class="sidenav-title">
+      <div class="home-logo-header" #logoHeader>
+        <div class="logo-wrapper navbar-logo">
+          <div class="clipvault-logo-stack">
+            <div class="clipvault-logo-clip">Clip</div>
+            <div class="clipvault-logo-vault">Vault</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="category-list">
+      <button mat-button class="category-btn"
+              [class.active]="selectedCategoryId === null"
+              (click)="selectCategory(null)">
+        <div class="category-name">All Videos</div>
+      </button>
+      <button mat-button class="category-btn"
+              *ngFor="let category of categories"
+              [class.active]="selectedCategoryId === category.id"
+              (click)="selectCategory(category.id)">
+        <div class="category-name">{{ category.categoryName }}</div>
+      </button>
+    </div>
+  </mat-sidenav>
+  
+  <mat-sidenav-content class="home-content">
+    <ng-container *ngIf="filteredThumbnails && filteredThumbnails.length > 0">
+      <mat-card class="home-video-card">
+        
+        <div class="home-video-grid">
+          <app-home-video-card *ngFor="let thumbnail of filteredThumbnails"
+                             [imageData]="thumbnail.imageData"
+                             [title]="thumbnail.title"
+                             [friendTags]="thumbnail.friendTags"
+                             [categoryIds]="thumbnail.categoryIds"
+                             (click)="navigateToVideo(thumbnail.id)">
+          </app-home-video-card>
+        </div>
+      </mat-card>
+    </ng-container>
+
+    <ng-container *ngIf="!isLoading && !error && filteredThumbnails.length === 0">
+      <mat-card class="home-video-card">
+        <div class="no-videos-message">
+          <h2>No videos found</h2>
+          <p>{{ selectedCategoryId ? 'No videos in this category' : 'No videos available' }}</p>
+        </div>
+      </mat-card>
+    </ng-container>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<div *ngIf="isLoading" class="loading-container" [ngClass]="{'fade-out': isLoadingFadingOut}">
+  <div class="loading-container-content">
+    <div class="logo-wrapper loading-logo">
       <div class="clipvault-logo-stack">
         <div class="clipvault-logo-clip">Clip</div>
         <div class="clipvault-logo-vault">Vault</div>
       </div>
-    </div>
-    
-    <div class="home-video-grid">
-      <app-home-video-card *ngFor="let thumbnail of thumbnails"
-                         [imageData]="thumbnail.imageData"
-                         [title]="thumbnail.title"
-                         [friendTags]="thumbnail.friendTags"
-                         [categoryIds]="thumbnail.categoryIds"
-                         (click)="navigateToVideo(thumbnail.id)">
-      </app-home-video-card>
-    </div>
-  </div>
-</ng-container>
-
-<div *ngIf="isLoading" class="loading-container" [ngClass]="{'fade-out': isLoadingFadingOut}">
-  <div class="loading-container-content">
-    <div class="clipvault-logo-stack">
-      <div class="clipvault-logo-clip">Clip</div>
-      <div class="clipvault-logo-vault">Vault</div>
     </div>
     <span class="loader"></span>
   </div>

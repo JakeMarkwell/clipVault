@@ -1,3 +1,10 @@
+:host {
+  display: block;
+  height: 100vh;
+  color: #f5f5f5;
+  font-family: 'Poppins', sans-serif;
+}
+
 .home-video-container {
   padding: 0px 0 0 0;
   background: #242B33;
@@ -9,13 +16,103 @@
   user-select: none; /* Standard syntax */
 }
 
+.home-sidenav-container {
+  height: 100vh;
+}
+
+.home-sidenav {
+  width: 15rem;
+  background: #23262B;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding-top: 2rem;
+  margin: 2rem 2rem 2rem 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.sidenav-title {
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  text-align: center;
+  letter-spacing: 0.05em;
+  color: #F6AE28;
+}
+
+.category-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.category-btn {
+  background: none;
+  border: none;
+  text-align: left;
+  width: 100%;
+  justify-content: flex-start;
+  font-size: 1rem;
+  color: #bdbdbd;
+  border-radius: 0;
+  padding: 0.5rem;
+  transition: background 0.2s, color 0.2s;
+  margin: 0;
+  min-height: 40px;
+}
+
+.category-btn.active,
+.category-btn:hover {
+  background: #353a40;
+  color: #fff;
+}
+
+.category-name {
+  padding-left: 0.5rem;
+}
+
+.home-content {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  min-height: 100vh;
+  background: #262b31;
+}
+
+.home-video-card {
+  background: #23262b;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+  width: auto;
+  height: auto;
+  padding: 0rem 2rem 2rem 2rem;
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  margin: 2rem 2rem 2rem 3.5rem;
+}
+
+.home-logo-header {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  transition: opacity 0.3s ease-out;
+  top: 0;
+  z-index: 10;
+}
+
 .home-video-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 16px 16px;
-  margin: 0 auto;
-  width: 75%;
+  width: 100%;
+  padding-top: 1rem;
 }
+
 .loader {
   width: 48px;
   height: 48px;
@@ -36,7 +133,7 @@
   top: 0;
   bottom: 0;
   margin: auto;
-  border: 3px dotted #928DAB;
+  border: 3px dotted #F6AE28;
   border-style: solid solid dotted;
   width: 24px;
   height: 24px;
@@ -63,32 +160,64 @@
   pointer-events: none;
 }
 
-.home-logo-header {
+.loading-container-content {
+  display: flex;
+  margin-bottom: 10rem;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo-wrapper {
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+
+.logo-wrapper.loading-logo {
+  margin-bottom: 2rem;
+}
+
+.logo-wrapper.navbar-logo {
   width: 100%;
-  padding-bottom: 2rem;
-  padding-left: 2rem;
-  transition: opacity 0.3s ease-out;
-  top: 0;
-  z-index: 10;
 }
 
-.home-logo-header .clipvault-logo-stack {
-  margin: 0;
-  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
+.clipvault-logo-stack {
+  position: relative;
+  width: 140px;
+  height: 90px;
+  margin-right: 3rem;
 }
 
-.home-video-grid {
-  padding-top: 0;
-}
-
-.home-logo-header .clipvault-logo-clip {
+.clipvault-logo-clip {
+  font-family: 'Blastimo';
+  font-size: 3.2rem;
   color: #fff;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -75%);
+  z-index: 2;
+  letter-spacing: -0.1em;
+  text-shadow: 0 2px 8px rgba(80,75,56,0.18);
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
-.home-logo-header .clipvault-logo-vault {
-  color: #928DAB;
+.clipvault-logo-vault {
+  font-family: 'Blastimo';
+  font-size: 3.2rem;
+  color: #F6AE28;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-27%, -25%);
+  z-index: 1;
+  letter-spacing: -0.1em;
+  text-shadow: 0 2px 8px rgba(80,75,56,0.10);
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 @keyframes fadeIn {
@@ -109,8 +238,7 @@
   100% {
     opacity: 0;
   }
-}
-    
+}    
 @keyframes rotation {
   0% {
     transform: rotate(0deg);
@@ -129,57 +257,14 @@
 } 
 .error-message {
   animation: fadeIn 0.8s ease-out forwards;
-}
-
-
-.clipvault-logo-stack {
-  position: relative;
-  width: 200px;
-  height: 90px;
-  margin-bottom: 32px;
-  margin-right: auto;
+  color: #ff5252;
+  text-align: center;
+  padding: 20px;
+  font-size: 16px;
+  background: #242B33;
+  height: 100vh;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  margin-left: 3.5rem;
-}
-
-.clipvault-logo-clip {
-  font-family: 'Blastimo';
-  font-size: 3.2rem;
-  color: #fff;
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 2;
-  letter-spacing: -0.1em;
-  text-shadow: 0 2px 8px rgba(80,75,56,0.18);
-    -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
-}
-
-.clipvault-logo-vault {
-  font-family: 'Blastimo';
-  font-size: 3.2rem;
-  color: #928DAB;
-  position: absolute;
-  left: 32px; /* Overlap horizontally */
-  top: 36px;  /* Slightly under 'Clip' */
-  z-index: 1;
-  letter-spacing: -0.1em;
-  text-shadow: 0 2px 8px rgba(80,75,56,0.10);
-    -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
-}
-.loading-container-content
-{
-  display: flex;
-  margin-bottom: 10rem;
-  flex-direction: column;
   align-items: center;
-  
+  justify-content: center;
 }
 

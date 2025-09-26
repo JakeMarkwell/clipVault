@@ -2,10 +2,13 @@ import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, HostListener }
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatButtonModule } from '@angular/material/button';
 import { ApiService } from '../api.service';
 import { Router } from '@angular/router';
 import { HomeVideoCardComponent } from '../home-video-card/home-video-card.component';
 import { GetThumbnailResponse } from '../models/get-thumbnail-response.model';
+import { VideoCategory } from '../models/video.model';
 
 @Component({
   selector: 'app-home',
@@ -14,6 +17,8 @@ import { GetThumbnailResponse } from '../models/get-thumbnail-response.model';
     CommonModule,
     MatCardModule,
     MatProgressSpinnerModule,
+    MatSidenavModule,
+    MatButtonModule,
     HomeVideoCardComponent
   ],
   templateUrl: './home.component.html',
@@ -21,6 +26,9 @@ import { GetThumbnailResponse } from '../models/get-thumbnail-response.model';
 })
 export class HomeComponent implements OnInit, AfterViewInit {
   thumbnails: GetThumbnailResponse[] = [];
+  filteredThumbnails: GetThumbnailResponse[] = [];
+  categories: VideoCategory[] = [];
+  selectedCategoryId: number | null = null;
   isLoading = true;
   isLoadingFadingOut = false;
   error: string | null = null;
@@ -34,6 +42,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.loadThumbnails();
+    this.loadCategories();
   }
   
   ngAfterViewInit(): void {
@@ -61,6 +70,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.apiService.getAllThumbnails(16).subscribe({
       next: (thumbnails) => {
         this.thumbnails = thumbnails;
+        this.applyFilter();
         
         this.isLoadingFadingOut = true;
         
@@ -79,6 +89,32 @@ export class HomeComponent implements OnInit, AfterViewInit {
         }, 600);
       }
     });
+  }
+
+  loadCategories(): void {
+    this.apiService.getVideoCategories().subscribe({
+      next: (categories) => {
+        this.categories = categories;
+      },
+      error: (err) => {
+        console.error('Error loading categories', err);
+      }
+    });
+  }
+
+  selectCategory(categoryId: number | null): void {
+    this.selectedCategoryId = categoryId;
+    this.applyFilter();
+  }
+
+  applyFilter(): void {
+    if (this.selectedCategoryId === null) {
+      this.filteredThumbnails = this.thumbnails;
+    } else {
+      this.filteredThumbnails = this.thumbnails.filter(thumbnail => 
+        thumbnail.categoryIds && thumbnail.categoryIds.includes(this.selectedCategoryId!)
+      );
+    }
   }
 
   navigateToVideo(thumbnailId?: string): void {
