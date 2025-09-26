@@ -1,14 +1,14 @@
 .card-root {
   background: transparent;
-  border-radius: 8x;
-  box-shadow: 0 8px 32px 0 rgba(31,28,44,0.10);
+  border-radius: 8px;
+  box-shadow: 0 12px 40px 0 #1e201e2f;
   overflow: hidden;
   cursor: pointer;
   transition: transform 0.3s, box-shadow 0.3s;
   height: 240px;
-  width: 100%;
+  width: 320px; // fixed width for each card
+  max-width: 100%;
   position: relative;
-  padding: 4px;
 }
 
 .card-root:hover {
@@ -29,14 +29,13 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  border: solid 2px rgb(255, 255, 255);
   border-radius: 8px;
 }
 
 .card-image-overlay {
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(53, 52, 61, 0.274);
+  background: rgba(53, 52, 61, 0.411);
   pointer-events: none;
 }
 

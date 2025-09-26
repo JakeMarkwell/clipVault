@@ -30,4 +30,9 @@
   color: #bdbdbd !important;
 }
 
+::ng-deep .mat-mdc-dialog-surface
+{
+  background-color: transparent;
+}
+
 

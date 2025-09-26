@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { ApiService } from './api.service';
+import { VideoPlayerDialogComponent } from './video-player-dialog/video-player-dialog.component';
 
 @NgModule({
   declarations: [

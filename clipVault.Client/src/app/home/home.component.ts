@@ -4,11 +4,13 @@ import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from '../api.service';
 import { Router } from '@angular/router';
 import { HomeVideoCardComponent } from '../home-video-card/home-video-card.component';
 import { GetThumbnailResponse } from '../models/get-thumbnail-response.model';
 import { VideoCategory } from '../models/video.model';
+import { VideoPlayerDialogComponent } from '../video-player-dialog/video-player-dialog.component';
 
 @Component({
   selector: 'app-home',
@@ -37,7 +39,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
   
   constructor(
     private apiService: ApiService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -119,5 +122,14 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   navigateToVideo(thumbnailId?: string): void {
     this.router.navigate(['/video/', thumbnailId]);
+  }
+
+  openVideoPlayer(thumbnailId?: string): void {
+    if (!thumbnailId) return;
+    this.dialog.open(VideoPlayerDialogComponent, {
+      data: { videoId: thumbnailId },
+      width: '65vw',
+      maxWidth: '75vw'
+    });
   }
 }

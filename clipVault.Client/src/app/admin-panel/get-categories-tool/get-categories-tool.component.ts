@@ -28,7 +28,7 @@ export class GetCategoriesToolComponent implements OnInit {
     this.getCategoriesError = null;
     this.apiService.getVideoCategories().subscribe({
       next: (res) => {
-        this.videoCategories = res;
+        this.videoCategories = res.sort((a, b) => a.id - b.id);
         this.getCategoriesLoading = false;
       },
       error: () => {
