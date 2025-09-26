@@ -1,0 +1,45 @@
+<form class="add-category-form" (ngSubmit)="addVideoCategory()" autocomplete="off">
+  <h2 class="form-title">Add Video Category</h2>
+  <div class="form-inputs">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Category Name</mat-label>
+      <input matInput [(ngModel)]="categoryName" name="categoryName" placeholder="Enter category name" required>
+    </mat-form-field>
+    
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Rating</mat-label>
+      <input matInput type="number" [(ngModel)]="categoryRating" name="rating" placeholder="Enter rating (0-10)" min="0" max="10" required>
+    </mat-form-field>
+    
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Image ID (Optional)</mat-label>
+      <input matInput [(ngModel)]="categoryImageId" name="imageId" placeholder="Enter image ID (optional)">
+    </mat-form-field>
+
+    <div class="action-row">
+      <div class="button-group">
+        <span class="status-text"><b>{{ categoryName && categoryRating !== null ? 'READY' : 'NOT READY' }}</b></span>
+        <button mat-flat-button class="add-category-button"
+                type="submit"
+                [disabled]="!categoryName || categoryRating === null || addCategoryLoading"
+                aria-label="Add Video Category">
+                <b>ADD CATEGORY</b>
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  @if (addCategoryLoading) {
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  }
+  @if (addCategoryError) {
+    <div class="error-message">
+      {{ addCategoryError }}
+    </div>
+  }
+  @if (addCategorySuccess) {
+    <div class="success-message">
+      {{ addCategorySuccess }}
+    </div>
+  }
+</form>

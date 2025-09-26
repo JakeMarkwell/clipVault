@@ -11,26 +11,35 @@
     </div>
   }
   @if (!getCategoriesLoading && videoCategories.length > 0) {
-    <div class="categories-list">
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Rating</th>
-            <th>Image ID</th>
-          </tr>
-        </thead>
-        <tbody>
-          @for (cat of videoCategories; track cat.id) {
-            <tr>
-              <td>{{cat.id}}</td>
-              <td>{{cat.categoryName}}</td>
-              <td>{{cat.rating}}</td>
-              <td>{{cat.imageId || '-'}}</td>
-            </tr>
-          }
-        </tbody>
+    <div class="table-wrapper">
+      <table mat-table [dataSource]="videoCategories" class="video-categories-table">
+        
+        <!-- Category ID Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef class="table-header">ID</th>
+          <td mat-cell *matCellDef="let item" class="table-cell">{{item.id}}</td>
+        </ng-container>
+
+        <!-- Category Name Column -->
+        <ng-container matColumnDef="categoryName">
+          <th mat-header-cell *matHeaderCellDef class="table-header">Name</th>
+          <td mat-cell *matCellDef="let item" class="table-cell">{{item.categoryName}}</td>
+        </ng-container>
+
+        <!-- Rating Column -->
+        <ng-container matColumnDef="rating">
+          <th mat-header-cell *matHeaderCellDef class="table-header">Rating</th>
+          <td mat-cell *matCellDef="let item" class="table-cell">{{item.rating}}</td>
+        </ng-container>
+
+        <!-- Image ID Column -->
+        <ng-container matColumnDef="imageId">
+          <th mat-header-cell *matHeaderCellDef class="table-header">Image ID</th>
+          <td mat-cell *matCellDef="let item" class="table-cell">{{item.imageId || '-'}}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="tableColumns" class="header-row"></tr>
+        <tr mat-row *matRowDef="let row; columns: tableColumns;" class="data-row"></tr>
       </table>
     </div>
   }

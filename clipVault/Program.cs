@@ -3,6 +3,7 @@ using clipVault.Handlers.Images;
 using clipVault.Repositories.Categories;
 using clipVault.Repositories.Images;
 using clipVault.Repositories.Video;
+using clipVault.Validators.Categories;
 using FastEndpoints;
 using FluentValidation;
 using Microsoft.AspNetCore.Http.Features;
@@ -37,6 +38,7 @@ builder.Services.AddTransient<IThumbnailService, ThumbnailService>();
 //Fluent Validators
 builder.Services.AddValidatorsFromAssemblyContaining<UploadVideoRequestValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<GetThumbnailRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<AddVideoCategoryRequestValidator>();
 
 builder.WebHost.ConfigureKestrel(options =>
 {

@@ -46,6 +46,11 @@
           <app-get-categories-tool></app-get-categories-tool>
         </mat-card>
       </ng-container>
+      <ng-container *ngSwitchCase="'addVideoCategory'">
+        <mat-card class="admin-tool-card">
+          <app-add-video-category-tool></app-add-video-category-tool>
+        </mat-card>
+      </ng-container>
     </ng-container>
   </mat-sidenav-content>
 </mat-sidenav-container>

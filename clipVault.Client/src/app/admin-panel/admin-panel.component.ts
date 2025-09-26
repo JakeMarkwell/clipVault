@@ -17,6 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { GetThumbnailToolComponent } from './get-thumbnail-tool/get-thumbnail-tool.component';
 import { UploadVideoToolComponent } from './upload-video-tool/upload-video-tool.component';
 import { GetCategoriesToolComponent } from './get-categories-tool/get-categories-tool.component';
+import { AddVideoCategoryToolComponent } from './add-video-category-tool/add-video-category-tool.component';
 
 interface ApiTreeNode {
   name: string;
@@ -47,7 +48,8 @@ const TREE_DATA: ApiTreeNode[] = [
   {
     name: 'Categories',
     children: [
-      { name: 'GetVideoCategories', api: 'getVideoCategories' }
+      { name: 'GetVideoCategories', api: 'getVideoCategories' },
+      { name: 'AddVideoCategory', api: 'addVideoCategory' }
     ]
   }
 ];
@@ -71,7 +73,8 @@ const TREE_DATA: ApiTreeNode[] = [
     MatIconModule,
     GetThumbnailToolComponent,
     UploadVideoToolComponent,
-    GetCategoriesToolComponent
+    GetCategoriesToolComponent,
+    AddVideoCategoryToolComponent
   ],
   templateUrl: './admin-panel.component.html',
   styleUrl: './admin-panel.component.scss',

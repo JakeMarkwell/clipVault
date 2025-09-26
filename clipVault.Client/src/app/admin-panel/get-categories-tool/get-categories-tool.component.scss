@@ -1,0 +1,73 @@
+.api-form-section {
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #F6AE28;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.01em;
+  }
+}
+
+.loading-indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.error-message {
+  color: #ff5252;
+  padding: 1rem;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+.table-wrapper {
+  margin-top: 1rem;
+  overflow-x: auto;
+}
+
+.video-categories-table {
+  width: 100%;
+  background: transparent !important;
+  
+  .table-header {
+    background: transparent !important;
+    color: #fff !important;
+    font-weight: 600 !important;
+    font-size: 0.95rem !important;
+    padding: 12px 16px !important;
+    text-align: left !important;
+    border-bottom: 1px solid #fff !important;
+    
+    // Add border after first column (ID column)
+    &:first-child {
+      border-right: 1px solid #fff !important;
+    }
+  }
+  
+  .table-cell {
+    &:first-child {
+      border-right: 1px solid #fff !important;
+    }
+  }
+
+}
+
+// Deep styles to override Material table defaults
+::ng-deep .video-categories-table {
+  .mat-mdc-table {
+    background: transparent !important;
+  }
+  
+  .mdc-data-table__cell,
+  .mdc-data-table__header-cell {
+    border-bottom: 1px solid #fff !important;
+    color: #fff !important;
+    
+    // Add border after first column (ID column)
+    &:first-child {
+      border-right: 1px solid #fff !important;
+    }
+  }
+}

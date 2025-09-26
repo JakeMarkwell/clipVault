@@ -65,4 +65,8 @@ export class ApiService {
       map(response => response.categories as VideoCategory[])
     );
   }
+
+  addVideoCategory(categoryData: { categoryName: string; rating: number; imageId?: string | null }): Observable<any> {
+    return this.http.post(`${this.api}/video-categories/add`, categoryData);
+  }
 }
