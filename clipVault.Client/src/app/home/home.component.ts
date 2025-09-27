@@ -49,7 +49,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
   
   ngAfterViewInit(): void {
-    // Initial check for scroll position
     this.onScroll();
   }
   
@@ -58,7 +57,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
     if (!this.logoHeader) return;
     
     const scrollPosition = window.scrollY;
-    // Start fading from 50px scroll, completely transparent by 200px
     const fadeStart = 50;
     const fadeEnd = 200;
     const opacity = 1 - Math.min(Math.max((scrollPosition - fadeStart) / (fadeEnd - fadeStart), 0), 1);
@@ -70,9 +68,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.isLoading = true;
     this.isLoadingFadingOut = false;
     this.error = null;
-    this.apiService.getAllThumbnails(16).subscribe({
+    this.apiService.getAllThumbnails(99).subscribe({
       next: (thumbnails) => {
-        this.thumbnails = thumbnails;
+        this.thumbnails = thumbnails
         this.applyFilter();
         
         this.isLoadingFadingOut = true;
@@ -97,7 +95,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   loadCategories(): void {
     this.apiService.getVideoCategories().subscribe({
       next: (categories) => {
-        this.categories = categories;
+        this.categories = categories.sort((a, b) => a.categoryName.localeCompare(b.categoryName));
       },
       error: (err) => {
         console.error('Error loading categories', err);
@@ -118,6 +116,29 @@ export class HomeComponent implements OnInit, AfterViewInit {
         thumbnail.categoryIds && thumbnail.categoryIds.includes(this.selectedCategoryId!)
       );
     }
+    
+    this.filteredThumbnails.sort((a, b) => {
+      const aLowestRating = this.getLowestCategoryRating(a.categoryIds);
+      const bLowestRating = this.getLowestCategoryRating(b.categoryIds);
+      
+      if (aLowestRating !== bLowestRating) {
+        return aLowestRating - bLowestRating;
+      }
+      
+      return (a.title || '').localeCompare(b.title || '', undefined, { sensitivity: 'base' });
+    });
+  }
+
+  private getLowestCategoryRating(categoryIds?: number[]): number {
+    if (!categoryIds || categoryIds.length === 0) {
+      return Number.MAX_SAFE_INTEGER; 
+    }
+    
+    const ratings = categoryIds
+      .map(id => this.categories.find(cat => cat.id === id)?.rating)
+      .filter(rating => rating !== undefined) as number[];
+      
+    return ratings.length > 0 ? Math.min(...ratings) : Number.MAX_SAFE_INTEGER;
   }
 
   navigateToVideo(thumbnailId?: string): void {

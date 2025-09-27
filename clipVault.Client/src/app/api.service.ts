@@ -32,7 +32,7 @@ export class ApiService {
   }
   
   //Strongly type this better in future
-  getAllThumbnails(limit: number = 16): Observable<GetThumbnailResponse[]> {
+  getAllThumbnails(limit: number = 128): Observable<GetThumbnailResponse[]> {
   return this.http.get<any>(`${this.api}/thumbnails?limit=${limit}`).pipe(
     map(response => {
       const items = Array.isArray(response) ? response : response.thumbnails;

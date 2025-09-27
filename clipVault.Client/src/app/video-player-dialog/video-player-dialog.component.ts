@@ -14,7 +14,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
         <mat-spinner></mat-spinner>
       </ng-container>
       <ng-container *ngIf="!isLoading && video">
-        <video controls autoplay [src]="video.videoUrl" style="width:65vw;max-height:75vh;"></video>
+        <video controls autoplay [src]="video.videoUrl" style="width:65vw;max-height:75vh; min-height: 40vh;"></video>
       </ng-container>
       <div *ngIf="error" class="error-message">{{ error }}</div>
     </div>
@@ -23,6 +23,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     .video-dialog-container {
       min-width: 400px;
       max-width: 90vw;
+      min-height: 40vh;
       background: transparent;
       box-shadow: 0 2px 16px rgba(0,0,0,0.4);
       margin: auto;
